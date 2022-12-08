@@ -1,6 +1,6 @@
 # Project Information:
 
-- [Jira](https://vitejs.dev/guide/)
+- [Jira](https://kml-4291.atlassian.net/projects/T0?selectedItem=com.atlassian.plugins.atlassian-connect-plugin:jira-slack-integration__project-config-page)
 - [Github](https://github.com/Clarusway-european-coders/SocialMedia)
 - [Figma](https://www.figma.com/file/kyZoAV3MXO3m459of45iEl/Social-Media-Platform?t=BkYMTzj1VvFvamll-0)
 
