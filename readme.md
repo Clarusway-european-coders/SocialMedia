@@ -20,6 +20,10 @@ To deploy the program, run the following commands
 - Styled-Components
 - axios
 
+## Agile Methodology
+
+In this project, we will be using Kanban method.
+
 ## Database and User Authentication
 
 All the related features will be handled via Firebase.
