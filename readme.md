@@ -19,6 +19,7 @@ To deploy the program, run the following commands
 - MUI
 - Styled-Components
 - axios
+- Formik and Yup
 
 ## Agile Methodology
 
@@ -37,5 +38,6 @@ All the related features will be handled via Firebase.
 
 ## Possible Future Features
 
+- Adding a component which tracks the user location and shows the weather information
 - DM'ing users
 - Discover section
