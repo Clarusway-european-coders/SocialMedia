@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import statueHead from "../../assets/Images/statueHead.png";
 import loginbackground from "../../assets/Images/loginbackground.png";
+import LoginVector from "../../assets/Images/LoginVector.png";
 
 const LoginPage = styled.div`
   /* ... */
@@ -24,7 +25,14 @@ export const HeadImg = styled.div`
   left: -150px;
   z-index: 0;
 `;
-
+export const CornerSVG = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 150px;
+  width: 150px;
+  background: url(${LoginVector});
+`;
 export const BackPattern = styled.div`
   background: url(${loginbackground});
   position: absolute;
@@ -38,15 +46,18 @@ export const BackPattern = styled.div`
 export const Introducer = styled.div`
   font-size: 4rem;
   position: absolute;
-  visibility: hidden;
+  /* visibility: hidden; */
+  opacity: 0;
   font-weight: 700;
   width: 380px;
   text-decoration: underline;
   z-index: 4;
+  transition: all ease-in 1s;
 
   @media screen and (min-width: 931px) {
     display: inline;
-    visibility: visible;
+    opacity: 1;
+    /* visibility: visible; */
   }
 `;
 export default LoginPage;
