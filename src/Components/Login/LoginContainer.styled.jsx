@@ -1,20 +1,22 @@
 import styled from "styled-components";
 
 const LoginCtn = styled.div`
-  /* ... */
-  width: 100%;
   max-width: 470px;
+  min-width: 330px;
   min-height: 441px;
   position: relative;
   z-index: 3;
   background-color: #fffcfc;
-  margin: 0 auto;
+  margin-left: auto;
   border-radius: 14px;
   padding: 33px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   box-shadow: 10px 10px 33px 14px #00000040;
+  @media screen and (max-width: 932px) {
+    margin: 0 auto;
+  }
 `;
 
 export const Title = styled.h2`
