@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const LoginCtn = styled.div`
   max-width: 470px;
-  min-width: 330px;
+  min-width: 315px;
   min-height: 441px;
   position: relative;
   z-index: 3;
@@ -16,6 +16,10 @@ const LoginCtn = styled.div`
   box-shadow: 10px 10px 33px 14px #00000040;
   @media screen and (max-width: 932px) {
     margin: 0 auto;
+  }
+  @media screen and (min-width: 1200px) {
+    box-shadow: ${(props) => !props.variant && "none"};
+    background-color: ${(props) => !props.variant && "transparent"};
   }
 `;
 

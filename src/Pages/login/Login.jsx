@@ -16,7 +16,7 @@ const Login = () => {
       <Container>
         <Box sx={{ maxWidth: "937px", marginLeft: "auto" }}>
           <Introducer>A strong community thriving together</Introducer>
-          <LoginContainer />
+          <LoginContainer isLogin={true} />
         </Box>
         <HeadImg />
         <BackPattern />

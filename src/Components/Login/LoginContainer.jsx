@@ -8,22 +8,30 @@ import {
 import React from "react";
 import LoginCtn, { Title } from "./LoginContainer.styled";
 
-const LoginContainer = () => {
+const LoginContainer = ({ isLogin }) => {
   return (
-    <LoginCtn>
-      <Title>Welcome</Title>
+    <LoginCtn variant={isLogin}>
+      <Title>{isLogin ? "Welcome" : "Sign Up"}</Title>
       <TextField
         error={false}
         id="outlined-error"
         label="Email"
-        defaultValue="Hello World"
+        placeholder="example@gmail.com"
       />
       <TextField
         error={false}
         id="outlined-error"
         label="Password"
-        defaultValue="Hello World"
+        placeholder="Enter Password here"
       />
+      {!isLogin && (
+        <TextField
+          error={false}
+          id="outlined-error"
+          label="Password-Repeat"
+          placeholder="Repeat Password here"
+        />
+      )}
       <Box sx={{ fontSize: "12px" }}>
         <FormControlLabel
           control={<Checkbox />}

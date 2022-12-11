@@ -10,10 +10,10 @@ const LoginPage = styled.div`
   min-height: 100vh;
   padding: 4rem 16px;
   overflow: hidden;
+  flex: 1;
 `;
 
 export const HeadImg = styled.div`
-  /* background: url(${statueHead}); */
   background: url(${statueHead});
   background-size: contain;
   background-repeat: no-repeat;
