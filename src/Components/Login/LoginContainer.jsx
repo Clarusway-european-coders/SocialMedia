@@ -6,13 +6,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useRef } from "react";
 import LoginCtn, { Title } from "./LoginContainer.styled";
 import * as yup from "yup";
 import { Formik, Form } from "formik";
-import { setUser } from "../../features/authSlice";
+
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import Register from "../../auth/register";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -33,23 +34,24 @@ const loginSchema = yup.object().shape({
 const LoginContainer = ({ isLogin }) => {
   // handleChange and handleBlur work exactly as expected--they use a name or id attribute to figure out which field to update.
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const formRef = useRef();
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(setUser(true));
-    navigate("/");
-  };
-
+  // You can not initilize react hooks inside js files but you can send them as arguments.
+  //
   return (
     <>
       <Formik
         initialValues={{ email: "", password: "", rePass: "" }}
         validationSchema={loginSchema}
+        innerRef={formRef}
         onSubmit={(values, actions) => {
-          //   login(values);
-          //   navigate("/stock");
+          if (isLogin) {
+            // todo: handle login
+          } else {
+            Register(values, navigate, dispatch);
+          }
           actions.resetForm();
           actions.setSubmitting(false);
         }}
@@ -62,7 +64,7 @@ const LoginContainer = ({ isLogin }) => {
           touched,
           errors,
         }) => (
-          <Form onSubmit={handleSubmit}>
+          <Form>
             <LoginCtn variant={isLogin}>
               <Title>{isLogin ? "Welcome" : "Sign Up"}</Title>
               <TextField
@@ -110,7 +112,6 @@ const LoginContainer = ({ isLogin }) => {
                   control={<Checkbox />}
                   label="I agree to company policies"
                 />
-                <p></p>
                 {isLogin && (
                   <Typography
                     variant="caption"
@@ -148,7 +149,7 @@ const LoginContainer = ({ isLogin }) => {
                 sx={{ borderRadius: "100px", backgroundColor: "#03A9F4" }}
                 disabled={isSubmitting}
               >
-                Login
+                {isLogin ? "Login" : "Sign Up"}
               </Button>
             </LoginCtn>
           </Form>

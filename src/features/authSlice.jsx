@@ -26,20 +26,20 @@ const authSlice = createSlice({
       state.user = false;
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(userLogin.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(userLogin.fullfilled, (state) => {
-        state.user = true;
-        state.loading = false;
-      })
-      .addCase(userLogin.rejected, (state) => {
-        state.loading = false;
-        state.error = true;
-      });
-  },
+  // extraReducers: (builder) => {
+  //   builder
+  //     .addCase(userLogin.pending, (state) => {
+  //       state.loading = true;
+  //     })
+  //     .addCase(userLogin.fullfilled, (state) => {
+  //       state.user = true;
+  //       state.loading = false;
+  //     })
+  //     .addCase(userLogin.rejected, (state) => {
+  //       state.loading = false;
+  //       state.error = true;
+  //     });
+  // },
 });
 export const { setUser, clearUser } = authSlice.actions;
 export default authSlice.reducer;
