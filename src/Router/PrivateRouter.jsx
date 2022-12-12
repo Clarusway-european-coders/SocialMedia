@@ -4,6 +4,7 @@ import authSlice from "../features/authSlice";
 
 const PrivateRouter = () => {
   const user = useSelector((state) => state.auth.user);
+  console.log(user);
 
   return user ? <Outlet /> : <Navigate to="/login" />;
 };

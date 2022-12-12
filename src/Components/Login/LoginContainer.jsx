@@ -62,7 +62,7 @@ const LoginContainer = ({ isLogin }) => {
           touched,
           errors,
         }) => (
-          <Form>
+          <Form onSubmit={handleSubmit}>
             <LoginCtn variant={isLogin}>
               <Title>{isLogin ? "Welcome" : "Sign Up"}</Title>
               <TextField
@@ -76,6 +76,7 @@ const LoginContainer = ({ isLogin }) => {
                 onBlur={handleBlur}
                 error={touched.email && Boolean(errors.email)}
                 helperText={touched.email && errors.email}
+                required
               />
               <TextField
                 label="Password"
@@ -87,6 +88,7 @@ const LoginContainer = ({ isLogin }) => {
                 onBlur={handleBlur}
                 error={touched.password && Boolean(errors.password)}
                 helperText={touched.password && errors.password}
+                required
               />
               {!isLogin && (
                 <TextField
@@ -100,6 +102,7 @@ const LoginContainer = ({ isLogin }) => {
                   onBlur={handleBlur}
                   error={touched.password && Boolean(errors.password)}
                   helperText={touched.password && errors.password}
+                  required
                 />
               )}
               <Box sx={{ fontSize: "12px" }}>
@@ -141,9 +144,9 @@ const LoginContainer = ({ isLogin }) => {
               </Box>
               <Button
                 variant="contained"
+                type="submit"
                 sx={{ borderRadius: "100px", backgroundColor: "#03A9F4" }}
                 disabled={isSubmitting}
-                onClick={handleSubmit}
               >
                 Login
               </Button>

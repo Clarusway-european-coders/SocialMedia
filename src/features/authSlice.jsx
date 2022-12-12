@@ -1,8 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: false,
+  loading: false,
+  error: false,
 };
+
+// Use AsyncThunk to update the user state. ClearUser can stay as it is.
+
+export const userLogin = createAsyncThunk(
+  //TODO: login with firebase authentication.
+  async (thunkAPI, { rejectWithValue }) => {}
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -14,8 +23,22 @@ const authSlice = createSlice({
       state.user = action.payload;
     },
     clearUser: (state) => {
-      state.user = null;
+      state.user = false;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(userLogin.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(userLogin.fullfilled, (state) => {
+        state.user = true;
+        state.loading = false;
+      })
+      .addCase(userLogin.rejected, (state) => {
+        state.loading = false;
+        state.error = true;
+      });
   },
 });
 export const { setUser, clearUser } = authSlice.actions;
