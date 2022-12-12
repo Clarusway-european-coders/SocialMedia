@@ -4,11 +4,15 @@ import {
   Checkbox,
   FormControlLabel,
   TextField,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import LoginCtn, { Title } from "./LoginContainer.styled";
 import * as yup from "yup";
 import { Formik, Form } from "formik";
+import { setUser } from "../../features/authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -28,6 +32,16 @@ const loginSchema = yup.object().shape({
 
 const LoginContainer = ({ isLogin }) => {
   // handleChange and handleBlur work exactly as expected--they use a name or id attribute to figure out which field to update.
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(setUser(true));
+    navigate("/");
+  };
+
   return (
     <>
       <Formik
@@ -47,7 +61,6 @@ const LoginContainer = ({ isLogin }) => {
           handleBlur,
           touched,
           errors,
-          isSubmitting,
         }) => (
           <Form>
             <LoginCtn variant={isLogin}>
@@ -95,11 +108,42 @@ const LoginContainer = ({ isLogin }) => {
                   label="I agree to company policies"
                 />
                 <p></p>
+                {isLogin && (
+                  <Typography
+                    variant="caption"
+                    display="block"
+                    gutterBottom
+                    sx={{
+                      textDecoration: "underline",
+                      color: "#03A9F4",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => navigate("/signup")}
+                  >
+                    Don't have an account? Click Here
+                  </Typography>
+                )}
+                {!isLogin && (
+                  <Typography
+                    variant="caption"
+                    display="block"
+                    gutterBottom
+                    sx={{
+                      textDecoration: "underline",
+                      color: "#03A9F4",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => navigate("/login")}
+                  >
+                    Already have an account? Sign in here...
+                  </Typography>
+                )}
               </Box>
               <Button
                 variant="contained"
                 sx={{ borderRadius: "100px", backgroundColor: "#03A9F4" }}
                 disabled={isSubmitting}
+                onClick={handleSubmit}
               >
                 Login
               </Button>
