@@ -27,6 +27,7 @@ const loginSchema = yup.object().shape({
 });
 
 const LoginContainer = ({ isLogin }) => {
+  // handleChange and handleBlur work exactly as expected--they use a name or id attribute to figure out which field to update.
   return (
     <>
       <Formik
@@ -46,6 +47,7 @@ const LoginContainer = ({ isLogin }) => {
           handleBlur,
           touched,
           errors,
+          isSubmitting,
         }) => (
           <Form>
             <LoginCtn variant={isLogin}>
@@ -97,6 +99,7 @@ const LoginContainer = ({ isLogin }) => {
               <Button
                 variant="contained"
                 sx={{ borderRadius: "100px", backgroundColor: "#03A9F4" }}
+                disabled={isSubmitting}
               >
                 Login
               </Button>
