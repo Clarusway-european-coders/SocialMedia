@@ -4,7 +4,7 @@ import wave from "../../assets/Images/waves1.svg";
 
 const WaveContainer = styled.div`
   width: 100vw;
-  height: 156px;
+
   z-index: -1;
   position: absolute;
   bottom: -170px;

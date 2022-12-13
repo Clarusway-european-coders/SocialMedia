@@ -3,7 +3,7 @@ import styled from "styled-components";
 const BlobContainer = styled.div`
   /* ... */
   position: absolute;
-  right: -10rem;
+  right: -4rem;
   z-index: 3;
 `;
 
