@@ -14,6 +14,7 @@ import { Formik, Form } from "formik";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import Register from "../../auth/register";
+import Login from "../../auth/login";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -48,7 +49,7 @@ const LoginContainer = ({ isLogin }) => {
         innerRef={formRef}
         onSubmit={(values, actions) => {
           if (isLogin) {
-            // todo: handle login
+            Login(values, navigate, dispatch);
           } else {
             Register(values, navigate, dispatch);
           }
