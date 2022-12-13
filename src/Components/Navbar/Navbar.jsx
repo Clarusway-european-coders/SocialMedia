@@ -9,16 +9,19 @@ import LogoIcon, {
 } from "./Navbar.styled";
 
 const Navbar = () => {
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
 
   return (
     <Container
       sx={{
         display: "flex",
+        flex: 1,
+        width: "100%",
         justifyContent: "space-between",
         alignItems: "center",
         alignContent: "center",
         padding: "0.4rem",
+        marginBottom: "5rem",
       }}
     >
       <LogoIcon />

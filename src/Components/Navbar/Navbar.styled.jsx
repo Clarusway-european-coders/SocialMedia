@@ -40,6 +40,7 @@ export const NavItemsContainer = styled.div`
 export const SideNav = styled.div`
   position: absolute;
   display: flex;
+  z-index: 4;
   flex-direction: column;
   height: 100vh;
   font-size: 2rem;
@@ -47,8 +48,8 @@ export const SideNav = styled.div`
   gap: 2rem;
   background: #1d2226;
   color: #fff;
-  right: 0;
-  top: 0;
+  right: -2rem;
+  top: -1rem;
   width: 60%;
   padding: 1rem 2rem;
   @media screen and (max-width: 650px) {
