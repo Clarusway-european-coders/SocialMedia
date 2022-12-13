@@ -1,11 +1,12 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { setUser } from "../features/authSlice";
 import { toastSuccessNotify, toastWarnNotify } from "../helpers/ToastNotify";
 import { Auth } from "./firebase";
 
 const Login = async (values, navigate, dispatch) => {
   try {
     await signInWithEmailAndPassword(Auth, values.email, values.password);
-    toastSuccessNotify("Welcom traveler");
+    toastSuccessNotify("Welcome traveler");
     dispatch(setUser(true));
     navigate("/");
   } catch (error) {

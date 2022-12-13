@@ -11,7 +11,7 @@ const Register = async (values, navigate, dispatch) => {
       values.email,
       values.password
     );
-    toastSuccessNotify("Welcome traveler");
+    toastSuccessNotify("Registered successfully");
     console.log(user);
     dispatch(setUser(true));
     navigate("/");
