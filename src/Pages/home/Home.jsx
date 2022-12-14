@@ -2,7 +2,7 @@ import { Container } from "@mui/material";
 import React from "react";
 import Blob from "../../Components/Home/Blob";
 import Navbar from "../../Components/Navbar/Navbar";
-import Header from "./Home.styled";
+import Header, { ServiceContainer } from "./Home.styled";
 import Globe from "../../Components/Home/Globe";
 import Megaphone from "../../Components/Home/Megaphone";
 import styled from "styled-components";
@@ -62,18 +62,20 @@ const Home = () => {
               padding: "10rem 2rem 4rem 2rem",
             }}
           >
-            {data.map((item, key) => {
-              return (
-                <Review
-                  tag={item.tag}
-                  bgColor={item.bgColor}
-                  text={item.text}
-                  higlight={item.highlight}
-                  reviewIcon={item.reviewIcon}
-                  key={key}
-                />
-              );
-            })}
+            <ServiceContainer>
+              {data.map((item, key) => {
+                return (
+                  <Review
+                    tag={item.tag}
+                    bgColor={item.bgColor}
+                    text={item.text}
+                    higlight={item.highlight}
+                    reviewIcon={item.reviewIcon}
+                    key={key}
+                  />
+                );
+              })}
+            </ServiceContainer>
           </Container>
         </BackgroundColor>
       </HomeStyle>

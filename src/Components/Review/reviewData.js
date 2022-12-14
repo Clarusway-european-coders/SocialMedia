@@ -24,7 +24,7 @@ const data = [
     tag: "Trustred",
     bgColor: "#ACACAC",
     text: "You can trust us with your personal data, we are only giving it to the highest bidder",
-    highlight: "Transparent by Design",
+    highlight: "Clear by Design",
     reviewIcon: "/src/assets/Images/SecurityIcon.png",
   },
 ];

@@ -17,4 +17,11 @@ export const Header = styled.h1`
   }
 `;
 
+export const ServiceContainer = styled.article`
+  display: flex;
+  gap: 4rem 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
 export default Header;
