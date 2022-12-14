@@ -4,17 +4,12 @@ import wave from "../../assets/Images/waves1.svg";
 
 const WaveContainer = styled.div`
   width: 100vw;
-  z-index: 2;
-  /* border: 1px solid red; */
+  height: 150px;
   position: absolute;
-  bottom: 2px;
-  left: 0;
-  right: 0;
-  margin: 0;
-  padding: 0;
-  transform: translateY(100%);
+  bottom: 0px;
+  transform: rotate(180deg);
 `;
-const Wave = () => {
+const ServiceWave = () => {
   return (
     <WaveContainer>
       <img src={wave} alt="" />
@@ -22,4 +17,4 @@ const Wave = () => {
   );
 };
 
-export default Wave;
+export default ServiceWave;

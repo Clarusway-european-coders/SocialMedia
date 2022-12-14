@@ -19,6 +19,7 @@ export const Header = styled.h1`
 
 export const ServiceContainer = styled.article`
   display: flex;
+  margin-bottom: 5rem;
   gap: 4rem 2rem;
   justify-content: center;
   flex-wrap: wrap;

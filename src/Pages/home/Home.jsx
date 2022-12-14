@@ -11,6 +11,7 @@ import sparks from "../../assets/Images/sparks.jpg";
 import Review from "../../Components/Review/Review";
 import Linking from "../../assets/Images/LinkingIcon.png";
 import data from "../../Components/Review/reviewData";
+import ServiceWave from "../../Components/Home/ServiceWave";
 const HomeStyle = styled.div`
   min-height: 100vh;
   position: relative;
@@ -58,8 +59,8 @@ const Home = () => {
             maxWidth="xl"
             sx={{
               position: "relative",
-              overflow: "hidden",
-              padding: "10rem 2rem 4rem 2rem",
+              // overflow: "hidden",
+              padding: "10rem 2rem 4rem 10rem",
             }}
           >
             <ServiceContainer>
@@ -77,6 +78,7 @@ const Home = () => {
               })}
             </ServiceContainer>
           </Container>
+          <ServiceWave />
         </BackgroundColor>
       </HomeStyle>
     </>
