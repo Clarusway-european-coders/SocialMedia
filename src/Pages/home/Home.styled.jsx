@@ -1,11 +1,5 @@
 import styled from "styled-components";
 
-const WrapperHome = styled.div`
-  /* ... */
-  /* padding: 1rem 2rem; */
-  /* overflow: hidden; */
-  /* position: relative; */
-`;
 export const Header = styled.h1`
   font-size: 6.25rem;
   font-weight: 900;
@@ -23,4 +17,4 @@ export const Header = styled.h1`
   }
 `;
 
-export default WrapperHome;
+export default Header;
