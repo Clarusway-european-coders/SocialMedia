@@ -1,10 +1,10 @@
 import React from "react";
-import Blobbig from "../../assets/Images/blogbig.svg";
-import BlobContainer from "./Blob.styled";
+import BlobContainer, { BlobShape } from "./Blob.styled";
+
 const Blob = () => {
   return (
     <BlobContainer>
-      <img src={Blobbig} alt="something" />
+      <BlobShape />
     </BlobContainer>
   );
 };

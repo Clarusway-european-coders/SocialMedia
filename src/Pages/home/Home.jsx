@@ -7,28 +7,65 @@ import Globe from "../../Components/Home/Globe";
 import Megaphone from "../../Components/Home/Megaphone";
 import styled from "styled-components";
 import Wave from "../../Components/Home/Wave";
+import sparks from "../../assets/Images/sparks.jpg";
 
 const HomeStyle = styled.div`
-  background-color: #2c5cb9;
   min-height: 100vh;
+  position: relative;
+  z-index: ${(props) => props.prime && "1"};
 `;
+const BackgroundColor = styled.div`
+  position: relative;
+  background-size: contain;
+  background: ${(props) => (props.img ? `url(${props.img})` : "#2c5cb9")};
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+`;
+
 const Home = () => {
   return (
-    <HomeStyle>
-      <WrapperHome>
-        <Container maxWidth="xl" sx={{ position: "relative" }}>
-          <Navbar />
-          <Blob />
-          <Header>
-            Connecting <br />
-            the Globe
-          </Header>
-        </Container>
+    <>
+      <HomeStyle>
+        <BackgroundColor>
+          <Container
+            maxWidth="xl"
+            sx={{
+              position: "relative",
+              overflow: "hidden",
+              height: "100vh",
+              backgroundColor: "#2c5cb9",
+              padding: "2rem 2rem 0rem 2rem",
+            }}
+          >
+            <Navbar />
+            <Header>
+              Connecting the <br />
+              Globe
+            </Header>
+            <Blob />
+          </Container>
+          {/* <Container maxWidth="xl">
+          adsfadsf
+          <h1>sdfsd</h1>
+        </Container> */}
+          {/* 
+      
+     */}
+        </BackgroundColor>
         <Globe />
         <Megaphone />
-      </WrapperHome>
-      <Wave />
-    </HomeStyle>
+        <Wave />
+      </HomeStyle>
+      <HomeStyle prime>
+        <BackgroundColor img={sparks}>
+          <h1>asdfas</h1>
+          <h1>asdfas</h1>
+          <h1>asdfas</h1>
+          <h1>asdfas</h1>
+        </BackgroundColor>
+      </HomeStyle>
+    </>
   );
 };
 

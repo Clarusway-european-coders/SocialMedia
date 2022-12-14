@@ -2,13 +2,14 @@ import styled from "styled-components";
 
 const WrapperHome = styled.div`
   /* ... */
-  padding: 1rem 2rem;
+  /* padding: 1rem 2rem; */
+  /* overflow: hidden; */
   /* position: relative; */
 `;
 export const Header = styled.h1`
   font-size: 6.25rem;
   font-weight: 900;
-  color: #d9d9d9;
+  color: #2e121d;
   position: relative;
   z-index: 2;
   @media screen and (max-width: 1200px) {

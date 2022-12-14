@@ -9,9 +9,11 @@ const MegaPhoneContainer = styled.div`
   z-index: 0;
   @media screen and (max-width: 1250px) {
     width: 60%;
+    bottom: 20%;
   }
   @media screen and (max-width: 700px) {
     bottom: 4rem;
+    bottom: 30%;
   }
 `;
 const Megaphone = () => {
