@@ -8,7 +8,9 @@ import Megaphone from "../../Components/Home/Megaphone";
 import styled from "styled-components";
 import Wave from "../../Components/Home/Wave";
 import sparks from "../../assets/Images/sparks.jpg";
-
+import Review from "../../Components/Review/Review";
+import Linking from "../../assets/Images/LinkingIcon.png";
+import data from "../../Components/Review/reviewData";
 const HomeStyle = styled.div`
   min-height: 100vh;
   position: relative;
@@ -45,13 +47,6 @@ const Home = () => {
             </Header>
             <Blob />
           </Container>
-          {/* <Container maxWidth="xl">
-          adsfadsf
-          <h1>sdfsd</h1>
-        </Container> */}
-          {/* 
-      
-     */}
         </BackgroundColor>
         <Globe />
         <Megaphone />
@@ -59,14 +54,34 @@ const Home = () => {
       </HomeStyle>
       <HomeStyle prime>
         <BackgroundColor img={sparks}>
-          <h1>asdfas</h1>
-          <h1>asdfas</h1>
-          <h1>asdfas</h1>
-          <h1>asdfas</h1>
+          <Container
+            maxWidth="xl"
+            sx={{
+              position: "relative",
+              overflow: "hidden",
+              padding: "10rem 2rem 4rem 2rem",
+            }}
+          >
+            {data.map((item, key) => {
+              return (
+                <Review
+                  tag={item.tag}
+                  bgColor={item.bgColor}
+                  text={item.text}
+                  higlight={item.highlight}
+                  reviewIcon={item.reviewIcon}
+                  key={key}
+                />
+              );
+            })}
+          </Container>
         </BackgroundColor>
       </HomeStyle>
     </>
   );
 };
+{
+  /* <Review tag="Secure" /> */
+}
 
 export default Home;
