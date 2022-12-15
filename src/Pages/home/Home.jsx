@@ -12,6 +12,7 @@ import Review from "../../Components/Review/Review";
 import data from "../../Components/Review/reviewData";
 import ServiceWave from "../../Components/Home/ServiceWave";
 import Service from "../../Components/Service/Service";
+import Footer from "../../Components/Footer/Footer";
 const HomeStyle = styled.div`
   /* min-height: 100vh; */
   position: relative;
@@ -99,6 +100,9 @@ const Home = () => {
             <Service />
           </Container>
         </BackgroundColor>
+      </HomeStyle>
+      <HomeStyle>
+        <Footer />
       </HomeStyle>
     </>
   );
