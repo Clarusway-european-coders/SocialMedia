@@ -3,7 +3,7 @@ import styled from "styled-components";
 import wave from "../../assets/Images/waves1.svg";
 
 const WaveContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 150px;
   position: absolute;
   bottom: -2px;
