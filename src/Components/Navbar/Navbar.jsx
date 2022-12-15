@@ -1,5 +1,8 @@
 import { Container } from "@mui/material";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import signOutUser from "../../auth/signout";
 import LogoIcon, {
   CloseIcon,
   Hamburger,
@@ -10,7 +13,13 @@ import LogoIcon, {
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
 
+  const handleSignOut = () => {
+    signOutUser();
+    navigate("/login");
+  };
   return (
     <Container
       sx={{
@@ -29,7 +38,8 @@ const Navbar = () => {
         <NavItems>Home</NavItems>
         <NavItems>Contact</NavItems>
         <NavItems>About</NavItems>
-        <NavItems>Login</NavItems>
+        {!user && <NavItems onClick={() => navigate("/login")}>Login</NavItems>}
+        {user && <NavItems onClick={handleSignOut}>Sign out</NavItems>}
       </NavItemsContainer>
       <Hamburger onClick={() => setToggle(true)} />
       {toggle && (

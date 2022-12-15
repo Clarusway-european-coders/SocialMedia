@@ -31,4 +31,17 @@ export const Title = styled.h2`
   color: #4f4f4f;
 `;
 
+export const ButtonContainer = styled.div`
+  position: relative;
+  border: 1px solid #eee;
+  padding: 1rem;
+  display: flex;
+  gap: 1.5rem;
+  cursor: pointer;
+  align-items: center;
+  > img {
+    height: 35px;
+  }
+`;
+
 export default LoginCtn;

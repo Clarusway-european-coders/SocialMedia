@@ -7,14 +7,15 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useRef } from "react";
-import LoginCtn, { Title } from "./LoginContainer.styled";
+import LoginCtn, { ButtonContainer, Title } from "./LoginContainer.styled";
 import * as yup from "yup";
 import { Formik, Form } from "formik";
 
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import Register from "../../auth/register";
-import Login from "../../auth/login";
+import Login, { LoginWithGoogle } from "../../auth/login";
+import google from "../../assets/Images/google.png";
 
 const loginSchema = yup.object().shape({
   email: yup
@@ -152,6 +153,12 @@ const LoginContainer = ({ isLogin }) => {
               >
                 {isLogin ? "Login" : "Sign Up"}
               </Button>
+              <ButtonContainer
+                onClick={() => LoginWithGoogle(navigate, dispatch)}
+              >
+                <img src={google} alt="" />
+                Sign in With Google
+              </ButtonContainer>
             </LoginCtn>
           </Form>
         )}
