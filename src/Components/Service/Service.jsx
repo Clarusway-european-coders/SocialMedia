@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
+import data from "./serviceData";
 
 const ServiceContainer = styled.div`
   /* ... */
@@ -27,7 +28,9 @@ const Avatar = styled.div`
   height: 200px;
   width: 200px;
   border-radius: 150px;
-  background-color: #fff;
+  background-image: ${(props) => `url(${props.img})`};
+  background-size: cover;
+  background-position: center;
   margin-bottom: 1.5rem;
   display: inline-block;
   @media screen and (max-width: 768px) {
@@ -36,7 +39,8 @@ const Avatar = styled.div`
   }
 `;
 const Name = styled.h4`
-  font-size: 1.6rem;
+  font-size: 2rem;
+  font-weight: 600;
   text-align: center;
   @media screen and (max-width: 768px) {
     display: inline-block;
@@ -55,9 +59,9 @@ const Dividers = styled.div`
 const FeedBack = styled.p`
   font-size: 1.5rem;
   width: 300px;
-  @media screen and (max-width: 768px) {
-    font-size: 1rem;
-  }
+  /* @media screen and (max-width: 768px) {
+    font-size: 1.5rem;
+  } */
 `;
 const MediaScroller = styled.div`
   display: grid;
@@ -70,6 +74,10 @@ const MediaScroller = styled.div`
   scroll-snap-type: inline mandatory;
   > * {
     scroll-snap-align: center;
+  }
+  @media screen and (max-width: 1000px) {
+    grid-auto-columns: 90%;
+    gap: 5rem;
   }
   @media screen and (max-width: 768px) {
     grid-auto-columns: 100%;
@@ -90,58 +98,18 @@ const AvatarContainer = styled.div`
 const Service = () => {
   return (
     <MediaScroller>
-      <ServiceContainer>
-        <AvatarContainer>
-          <Avatar />
-          <Name>isim</Name>
-        </AvatarContainer>
-        <Dividers />
-        <FeedBack>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic libero
-          laboriosam consequuntur ullam rem aspernatur sequi delectus atque,
-          dolor numquam est perspiciatis sed. Itaque voluptates assumenda,
-          nostrum eligendi quae error.
-        </FeedBack>
-      </ServiceContainer>
-      <ServiceContainer>
-        <AvatarContainer>
-          <Avatar />
-          <Name>isim</Name>
-        </AvatarContainer>
-        <Dividers />
-        <FeedBack>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic libero
-          laboriosam consequuntur ullam rem aspernatur sequi delectus atque,
-          dolor numquam est perspiciatis sed. Itaque voluptates assumenda,
-          nostrum eligendi quae error.
-        </FeedBack>
-      </ServiceContainer>
-      <ServiceContainer>
-        <AvatarContainer>
-          <Avatar />
-          <Name>isim</Name>
-        </AvatarContainer>
-        <Dividers />
-        <FeedBack>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic libero
-          laboriosam consequuntur ullam rem aspernatur sequi delectus atque,
-          dolor numquam est perspiciatis sed. Itaque voluptates assumenda,
-          nostrum eligendi quae error.
-        </FeedBack>
-      </ServiceContainer>
-      <ServiceContainer>
-        <AvatarContainer>
-          <Avatar />
-          <Name>isim</Name>
-        </AvatarContainer>
-        <Dividers />
-        <FeedBack>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic libero
-          laboriosam consequuntur ullam rem aspernatur sequi delectus atque,
-          dolor numquam est perspiciatis sed. Itaque voluptates assumenda,
-          nostrum eligendi quae error.
-        </FeedBack>
-      </ServiceContainer>
+      {data.map((item, index) => {
+        return (
+          <ServiceContainer key={index}>
+            <AvatarContainer>
+              <Avatar img={item.avatar} />
+              <Name>{item.name}</Name>
+            </AvatarContainer>
+            <Dividers />
+            <FeedBack>{item.review}</FeedBack>
+          </ServiceContainer>
+        );
+      })}
     </MediaScroller>
   );
 };
