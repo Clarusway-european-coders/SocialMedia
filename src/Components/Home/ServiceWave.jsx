@@ -6,7 +6,7 @@ const WaveContainer = styled.div`
   width: 100vw;
   height: 150px;
   position: absolute;
-  bottom: 0px;
+  bottom: -2px;
   transform: rotate(180deg);
 `;
 const ServiceWave = () => {

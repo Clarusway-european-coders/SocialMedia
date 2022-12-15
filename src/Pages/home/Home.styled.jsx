@@ -25,4 +25,18 @@ export const ServiceContainer = styled.article`
   flex-wrap: wrap;
 `;
 
+export const ReviewHeader = styled.h2`
+  font-weight: 700;
+  font-size: 5rem;
+  margin-bottom: 3rem;
+  @media screen and (max-width: 1200px) {
+    font-size: 4.25rem;
+  }
+  @media screen and (max-width: 900px) {
+    font-size: 3.25rem;
+  }
+  @media screen and (max-width: 600px) {
+    font-size: 2.25rem;
+  }
+`;
 export default Header;

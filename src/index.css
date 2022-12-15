@@ -24,6 +24,7 @@
   width: 100vw;
   display: flex;
   flex-direction: column;
+  /* overflow: hidden; */
 }
 body,
 html {
@@ -45,4 +46,15 @@ svg,
 video {
   display: block;
   max-width: 100%;
+}
+/* The code blow changes the scrollbar property. */
+::-webkit-scrollbar {
+  width: 1.5em;
+}
+::-webkit-scrollbar-track {
+  background: rgb(234, 245, 234);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(46, 46, 46);
 }

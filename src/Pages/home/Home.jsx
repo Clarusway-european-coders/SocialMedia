@@ -2,18 +2,18 @@ import { Container } from "@mui/material";
 import React from "react";
 import Blob from "../../Components/Home/Blob";
 import Navbar from "../../Components/Navbar/Navbar";
-import Header, { ServiceContainer } from "./Home.styled";
+import Header, { ReviewHeader, ServiceContainer } from "./Home.styled";
 import Globe from "../../Components/Home/Globe";
 import Megaphone from "../../Components/Home/Megaphone";
 import styled from "styled-components";
 import Wave from "../../Components/Home/Wave";
 import sparks from "../../assets/Images/sparks.jpg";
 import Review from "../../Components/Review/Review";
-import Linking from "../../assets/Images/LinkingIcon.png";
 import data from "../../Components/Review/reviewData";
 import ServiceWave from "../../Components/Home/ServiceWave";
+import Service from "../../Components/Service/Service";
 const HomeStyle = styled.div`
-  min-height: 100vh;
+  /* min-height: 100vh; */
   position: relative;
   z-index: ${(props) => props.prime && "1"};
 `;
@@ -26,6 +26,8 @@ const BackgroundColor = styled.div`
   background-size: cover;
 `;
 
+//! The HomeStyle Containers can be their own components.
+//! They can be seperated.
 const Home = () => {
   return (
     <>
@@ -79,6 +81,23 @@ const Home = () => {
             </ServiceContainer>
           </Container>
           <ServiceWave />
+        </BackgroundColor>
+      </HomeStyle>
+      <HomeStyle>
+        <BackgroundColor>
+          <Container
+            maxWidth="xl"
+            sx={{
+              position: "relative",
+              padding: "2rem 2rem",
+            }}
+          >
+            <ReviewHeader>
+              Hear From Our <br />
+              Customers
+            </ReviewHeader>
+            <Service />
+          </Container>
         </BackgroundColor>
       </HomeStyle>
     </>
