@@ -49,14 +49,14 @@ const SideMenu = () => {
   };
   return (
     <SideContainer>
-      <SideElement>
+      <SideElement onClick={() => navigate("/")}>
         <img src={Logo} alt="Logo" />
       </SideElement>
-      <SideElement>
+      <SideElement onClick={() => navigate("/")}>
         <img src={Home} alt="Home" />
         <h3>Home</h3>
       </SideElement>
-      <SideElement>
+      <SideElement onClick={() => navigate("profile")}>
         <img src={Profile} alt="Profile" />
         <h3>Profile</h3>
       </SideElement>

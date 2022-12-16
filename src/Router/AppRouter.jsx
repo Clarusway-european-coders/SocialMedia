@@ -13,11 +13,11 @@ const AppRouter = () => {
       <Routes>
         <Route path="/main" element={<PrivateRouter />}>
           <Route path="" element={<Main />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="" element={<Home />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="login" element={<Login />} />
-        <Route path="profile" element={<Profile />} />
       </Routes>
     </Router>
   );

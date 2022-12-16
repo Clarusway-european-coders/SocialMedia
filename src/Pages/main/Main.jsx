@@ -4,6 +4,7 @@ import MainContainer, { InnerGrid } from "./Main.styled";
 import SideMenu from "../../Components/Main/SideMenu";
 import SideProfile from "../../Components/Main/SideProfile";
 import Tweet from "../../Components/Main/Tweet";
+import BottomNav from "../../Components/Main/BottomNav";
 const Main = () => {
   return (
     <MainContainer>
@@ -21,6 +22,7 @@ const Main = () => {
           <SideProfile />
         </InnerGrid>
       </Container>
+      <BottomNav />
     </MainContainer>
   );
 };
