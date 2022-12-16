@@ -8,9 +8,7 @@ const PrivateRouter = () => {
   const user = useSelector((state) => state.auth.user);
 
   // This function will check if the user is logged in or not.
-  onAuthStateChanged(Auth, (currentUser) => {
-    user = currentUser;
-  });
+  // onAuthStateChanged(Auth);
   console.log(user);
 
   return user ? <Outlet /> : <Navigate to="/login" />;
