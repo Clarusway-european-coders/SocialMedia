@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import React from "react";
 import MainContainer, { InnerGrid } from "./Main.styled";
 import SideMenu from "../../Components/Main/SideMenu";
@@ -10,13 +10,13 @@ const Main = () => {
       <Container sx={{ padding: "2rem 1rem" }}>
         <InnerGrid>
           <SideMenu />
-          <div>
+          <Box>
             <Tweet />
             <Tweet />
             <Tweet />
             <Tweet />
             <Tweet />
-          </div>
+          </Box>
 
           <SideProfile />
         </InnerGrid>

@@ -8,11 +8,17 @@ import { Box } from "@mui/material";
 
 const TweetContainer = styled.div`
   /* ... */
-  border: 1px solid #000;
+  border: 0.1px solid #f0efef;
   padding: 1rem;
-  margin: 1rem;
+  /* margin: 1rem; */
   display: grid;
+  position: relative;
   grid-template-columns: auto 1fr;
+  /* &::after {
+    content: "";
+    border: 1px solid #000;
+    height: 100vh;
+  } */
 `;
 const ProfilePicture = styled.div`
   width: 60px;
