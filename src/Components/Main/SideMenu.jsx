@@ -29,8 +29,13 @@ const SideContainer = styled.div`
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
   padding: 1.5rem;
+  max-height: 400px;
+  min-width: 96px;
   > ${SideElement} {
     margin-bottom: 1rem;
+  }
+  @media screen and (max-width: 500px) {
+    display: none;
   }
 `;
 

@@ -12,6 +12,12 @@ export const InnerGrid = styled.div`
   @media screen and (max-width: 900px) {
     grid-template-columns: auto 4fr 2fr;
   }
+  @media screen and (max-width: 800px) {
+    grid-template-columns: auto 1fr;
+  }
+  @media screen and (max-width: 500px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export default MainContainer;
