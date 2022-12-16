@@ -11,7 +11,7 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-import { combineReducers } from "@reduxjs/toolkit";
+
 // auth is the name we define our slicer, authReducer is the default export from the slicer.
 // Configure store combines the slicers together.
 
