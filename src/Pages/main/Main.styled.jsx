@@ -9,6 +9,9 @@ const MainContainer = styled.div`
 export const InnerGrid = styled.div`
   display: grid;
   grid-template-columns: 2fr 4fr 2fr;
+  @media screen and (max-width: 900px) {
+    grid-template-columns: auto 4fr 2fr;
+  }
 `;
 
 export default MainContainer;

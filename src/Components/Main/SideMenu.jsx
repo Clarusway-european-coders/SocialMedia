@@ -17,11 +17,14 @@ const SideElement = styled.div`
   > h3 {
     font-weight: 500;
     font-size: 1.5rem;
+    @media screen and (max-width: 900px) {
+      display: none;
+    }
   }
 `;
 
 const SideContainer = styled.div`
-  width: 100%;
+  /* width: 100%; */
   background: #ffffff;
   box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
