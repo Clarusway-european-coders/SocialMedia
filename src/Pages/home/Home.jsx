@@ -63,7 +63,7 @@ const Home = () => {
             sx={{
               position: "relative",
               // overflow: "hidden",
-              padding: "10rem 2rem 4rem 10rem",
+              padding: "10rem 2rem 7rem 2rem",
             }}
           >
             <ServiceContainer>

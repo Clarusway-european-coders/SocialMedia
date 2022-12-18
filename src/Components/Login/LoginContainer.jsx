@@ -31,6 +31,7 @@ const loginSchema = yup.object().shape({
     .matches(/[a-z]+/, "Password must have a lowercase")
     .matches(/[A-Z]+/, "Password must have an uppercase")
     .matches(/[!,?{}><%&$#£+-.]+/, " Password must have a special char"),
+  username: yup.string().required("Please enter a username "),
 });
 
 const LoginContainer = ({ isLogin }) => {
@@ -45,7 +46,7 @@ const LoginContainer = ({ isLogin }) => {
   return (
     <>
       <Formik
-        initialValues={{ email: "", password: "", rePass: "" }}
+        initialValues={{ email: "", password: "", rePass: "", username: "" }}
         validationSchema={loginSchema}
         innerRef={formRef}
         onSubmit={(values, actions) => {
@@ -69,6 +70,21 @@ const LoginContainer = ({ isLogin }) => {
           <Form>
             <LoginCtn variant={isLogin}>
               <Title>{isLogin ? "Welcome" : "Sign Up"}</Title>
+              {!isLogin && (
+                <TextField
+                  label="User Name"
+                  id="username"
+                  name="username"
+                  type="text"
+                  variant="outlined"
+                  value={values.username}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.username && Boolean(errors.username)}
+                  helperText={touched.username && errors.username}
+                  required
+                />
+              )}
               <TextField
                 label="Email"
                 name="email"
