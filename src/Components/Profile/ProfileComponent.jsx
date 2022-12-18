@@ -1,5 +1,10 @@
-import React from "react";
+import { getDatabase, onValue, ref } from "firebase/database";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { ReadDesc } from "../../auth/database";
+import FormDialog from "../Dialog/FormDialog";
+import DescDialog from "./Description";
 import wallpaper from "/src/assets/Images/Wallpaper.jpg";
 
 const ProContainer = styled.div`
@@ -48,25 +53,37 @@ const ProfileElement = styled.div`
 `;
 
 const ProfileComponent = () => {
+  const { userName, creationDate, userId } = useSelector((state) => state.auth);
+  const [desc, setDesc] = useState("");
+  useEffect(() => {
+    const db = getDatabase();
+    onValue(ref(db, "users/" + userId + "/description"), (snapshot) => {
+      setDesc(snapshot.val());
+    });
+  }, []);
+
+  const userMotto = ReadDesc(userId);
   return (
     <ProContainer>
       <WallContainer>
         <img src={wallpaper} alt="Wallpaper" />
       </WallContainer>
       <ProfileContent>
+        <DescDialog userId={userId} />
         <ProfileImg />
         <ProfileElement>
-          <h3>Profile Name</h3>
+          <h3>{userName}</h3>
         </ProfileElement>
         <ProfileElement>
           <h3>Joined At</h3>
-          <p>01-Nov-22</p>
+          <p>{creationDate}</p>
         </ProfileElement>
         <ProfileElement>
           <h3>Motto</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, earum.
-          </p>
+          <p>{desc}</p>
+        </ProfileElement>
+        <ProfileElement>
+          <FormDialog />
         </ProfileElement>
       </ProfileContent>
     </ProContainer>

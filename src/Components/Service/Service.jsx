@@ -1,12 +1,8 @@
-import { Box } from "@mui/material";
 import React from "react";
 import styled from "styled-components";
 import data from "./serviceData";
 
 const ServiceContainer = styled.div`
-  /* ... */
-  /* width: 720px; */
-  /* height: 454px; */
   padding: 67px 43px;
   background-color: #151313;
   border-radius: 35px;
@@ -14,10 +10,11 @@ const ServiceContainer = styled.div`
   color: #fff;
   gap: 20px;
   justify-content: space-around;
-  min-width: 400px;
+  min-width: 300px;
   max-width: 750px;
   @media screen and (max-width: 1300px) {
-    padding: 50px 30px;
+    padding: 50px 10px;
+    /* margin-right: 0.5rem; */
     height: auto;
     justify-content: center;
     align-items: center;
@@ -53,7 +50,7 @@ const Dividers = styled.div`
   @media screen and (max-width: 1300px) {
     transform: rotate(180deg);
     height: 15px;
-    width: 300px;
+    min-width: 270px;
   }
 `;
 const FeedBack = styled.p`

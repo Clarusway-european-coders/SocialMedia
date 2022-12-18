@@ -4,6 +4,9 @@ const initialState = {
   user: false,
   loading: false,
   error: false,
+  userId: null,
+  userName: null,
+  creationDate: null,
 };
 
 // Use AsyncThunk to update the user state. ClearUser can stay as it is.
@@ -22,8 +25,20 @@ const authSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    setUserId: (state, action) => {
+      state.userId = action.payload;
+    },
     clearUser: (state) => {
       state.user = false;
+      state.userName = null;
+      state.userId = null;
+      state.creationDate = null;
+    },
+    setUserName: (state, action) => {
+      state.userName = action.payload;
+    },
+    setDate: (state, action) => {
+      state.creationDate = action.payload;
     },
   },
   // extraReducers: (builder) => {
@@ -41,5 +56,6 @@ const authSlice = createSlice({
   //     });
   // },
 });
-export const { setUser, clearUser } = authSlice.actions;
+export const { setUser, clearUser, setUserId, setUserName, setDate } =
+  authSlice.actions;
 export default authSlice.reducer;

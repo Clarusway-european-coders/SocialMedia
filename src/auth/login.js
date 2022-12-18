@@ -17,7 +17,8 @@ const Login = async (values, navigate, dispatch) => {
 
 export const LoginWithGoogle = async (navigate, dispatch) => {
   try {
-    await signInWithPopup(Auth, provider);
+    const type = await signInWithPopup(Auth, provider);
+    console.log(type);
     dispatch(setUser(true));
     toastSuccessNotify("Welcome");
     navigate("/");

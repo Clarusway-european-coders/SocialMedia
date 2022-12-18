@@ -1,5 +1,10 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { setUser } from "../features/authSlice";
+import {
+  setUser,
+  setUserId,
+  setUserName,
+  setDate,
+} from "../features/authSlice";
 import { toastSuccessNotify, toastWarnNotify } from "../helpers/ToastNotify";
 import writeUserData from "./database";
 import { Auth } from "./firebase";
@@ -12,14 +17,16 @@ const Register = async (values, navigate, dispatch) => {
       values.email,
       values.password
     );
-
     const { uid, email } = user.user;
+    dispatch(setUserId(uid));
+    dispatch(setDate(new Date().toJSON().slice(0, 10)));
+    dispatch(setUserName(values.username));
     writeUserData(uid, values.username, email);
 
     console.log(user.user);
 
     toastSuccessNotify("Registered successfully");
-    console.log(user);
+
     dispatch(setUser(true));
     navigate("/");
   } catch (error) {
