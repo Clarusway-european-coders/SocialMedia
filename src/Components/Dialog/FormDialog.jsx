@@ -7,14 +7,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
-import { writeTwittData } from "../../auth/database";
 import { useSelector } from "react-redux";
+import writeTweet from "../../auth/tweet";
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
 
-  const { userName } = useSelector((state) => state.auth);
+  const { userName, userId } = useSelector((state) => state.auth);
   console.log(userName);
   const handleClickOpen = () => {
     setOpen(true);
@@ -33,7 +33,8 @@ export default function FormDialog() {
   };
   const handleSubmit = () => {
     setOpen(false);
-    writeTwittData;
+    writeTweet(userId, userName, message);
+    handleClose();
   };
 
   return (
@@ -48,6 +49,7 @@ export default function FormDialog() {
             Please fill the following fields.
           </DialogContentText>
           <TextField
+            sx={{ width: "300px" }}
             id="standard-multiline-static"
             label="Write a Tweet"
             multiline
@@ -61,7 +63,7 @@ export default function FormDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Submit</Button>
+          <Button onClick={handleSubmit}>Submit</Button>
         </DialogActions>
       </Dialog>
     </div>

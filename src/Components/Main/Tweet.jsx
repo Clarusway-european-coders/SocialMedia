@@ -47,36 +47,32 @@ const Icon = styled.div`
   width: 20px;
   cursor: pointer;
 `;
-const Tweet = () => {
+const Tweet = ({ item }) => {
+  console.log(item);
   return (
     <TweetContainer>
       <ProfilePicture reviewIcon={ProfileImg} />
       <Box sx={{ marginLeft: "10px" }}>
-        <ProfileTag>Profil Name</ProfileTag>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam
-          consequatur distinctio voluptatibus in officia deserunt illo corporis
-          earum sed tempore! Sequi itaque explicabo exercitationem quidem aut
-          tempore odit illum tenetur.
-        </p>
+        <ProfileTag>{item?.username}</ProfileTag>
+        <p>{item?.message}</p>
         <IconDiv>
           <IconContainer>
             <Icon>
               <img src={Like} alt="" />
             </Icon>
-            <p>59</p>
+            <p>{item?.like}</p>
           </IconContainer>
           <IconContainer>
             <Icon>
               <img src={Cycle} alt="" />
             </Icon>
-            <p>59</p>
+            <p>{item?.retweet}</p>
           </IconContainer>
           <IconContainer>
             <Icon>
               <img src={Calendar} alt="" />
             </Icon>
-            <p>59</p>
+            <p>{item?.date}</p>
           </IconContainer>
         </IconDiv>
       </Box>

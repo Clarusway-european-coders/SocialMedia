@@ -55,6 +55,7 @@ const ProfileElement = styled.div`
 const ProfileComponent = () => {
   const { userName, creationDate, userId } = useSelector((state) => state.auth);
   const [desc, setDesc] = useState("");
+
   useEffect(() => {
     const db = getDatabase();
     onValue(ref(db, "users/" + userId + "/description"), (snapshot) => {
@@ -62,7 +63,6 @@ const ProfileComponent = () => {
     });
   }, []);
 
-  const userMotto = ReadDesc(userId);
   return (
     <ProContainer>
       <WallContainer>
