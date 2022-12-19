@@ -14,6 +14,7 @@ const Profile = () => {
   const { userId } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    // The function below sorts the personal tweets from firebase
     getTweets()
       .then((list) => {
         console.log(list);
