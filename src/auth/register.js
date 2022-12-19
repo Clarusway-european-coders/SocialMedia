@@ -18,10 +18,12 @@ const Register = async (values, navigate, dispatch) => {
       values.password
     );
     const { uid, email } = user.user;
+    const creationDate = new Date().toJSON().slice(0, 10);
+    console.log(user.user);
     dispatch(setUserId(uid));
-    dispatch(setDate(new Date().toJSON().slice(0, 10)));
+    dispatch(setDate(creationDate));
     dispatch(setUserName(values.username));
-    writeUserData(uid, values.username, email);
+    writeUserData(uid, values.username, email, creationDate);
 
     console.log(user.user);
 

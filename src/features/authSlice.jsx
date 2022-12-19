@@ -28,6 +28,9 @@ const authSlice = createSlice({
     setUserId: (state, action) => {
       state.userId = action.payload;
     },
+    setUserDate: (state, action) => {
+      state.creationDate = action.payload;
+    },
     clearUser: (state) => {
       state.user = false;
       state.userName = null;
@@ -56,6 +59,12 @@ const authSlice = createSlice({
   //     });
   // },
 });
-export const { setUser, clearUser, setUserId, setUserName, setDate } =
-  authSlice.actions;
+export const {
+  setUser,
+  clearUser,
+  setUserId,
+  setUserName,
+  setDate,
+  setUserDate,
+} = authSlice.actions;
 export default authSlice.reducer;

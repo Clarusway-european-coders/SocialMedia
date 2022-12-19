@@ -1,22 +1,20 @@
 import { getDatabase, onValue, ref, set, update } from "firebase/database";
 import { nanoid } from "nanoid";
-
-export function writeUserData(userId, name = "", email) {
-  const db = getDatabase();
+const db = getDatabase();
+export function writeUserData(userId, name = "", email, date) {
   const reference = ref(db, "users/" + userId);
   set(reference, {
     userName: name,
     email: email,
     description: "",
+    creationDate: date,
   });
 }
-export function writeUserDesc(userId, desc) {
-  const db = getDatabase();
-  update(ref(db, `users/${userId}`), { description: desc });
+export async function writeUserDesc(userId, desc) {
+  await update(ref(db, `users/${userId}`), { description: desc });
 }
 
 export function ReadDesc(userId) {
-  const db = getDatabase();
   const userDesc = ref(db, "users/" + userId + "/description");
   let data = null;
   onValue(userDesc, (snapshot) => {
@@ -24,4 +22,21 @@ export function ReadDesc(userId) {
   });
   return data;
 }
+export async function getUser(userId) {
+  // user = ref(db, "users/" + userId);
+  let data = {};
+  const dbref = ref(db, "users/" + userId);
+  onValue(dbref, (snapshot) => {
+    data = snapshot.val();
+    // console.log(data);
+  });
+  return data;
+  // let data = null;
+  // onValue(user, (snapshot) => {
+  //   data = snapshot.val();
+  // });
+  // console.log(data);
+  // return data;
+}
+
 export default writeUserData;

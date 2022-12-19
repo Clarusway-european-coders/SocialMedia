@@ -9,7 +9,7 @@ const PrivateRouter = () => {
 
   // This function will check if the user is logged in or not.
   // onAuthStateChanged(Auth);
-  console.log(user);
+  // console.log(user);
 
   return user ? <Outlet /> : <Navigate to="/login" />;
 };

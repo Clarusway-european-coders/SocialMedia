@@ -2,9 +2,10 @@ import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { ReadDesc } from "../../auth/database";
+import { getUser, ReadDesc } from "../../auth/database";
 import FormDialog from "../Dialog/FormDialog";
 import DescDialog from "./Description";
+import Animations from "./Loading";
 import wallpaper from "/src/assets/Images/Wallpaper.jpg";
 
 const ProContainer = styled.div`
@@ -53,16 +54,18 @@ const ProfileElement = styled.div`
 `;
 
 const ProfileComponent = () => {
+  const db = getDatabase();
   const { userName, creationDate, userId } = useSelector((state) => state.auth);
-  const [desc, setDesc] = useState("");
+  const [user, setUser] = useState();
 
   useEffect(() => {
-    const db = getDatabase();
-    onValue(ref(db, "users/" + userId + "/description"), (snapshot) => {
-      setDesc(snapshot.val());
+    const dbref = ref(db, "users/" + userId);
+
+    onValue(dbref, (snapshot) => {
+      setUser(snapshot.val());
     });
   }, []);
-
+  console.log(user);
   return (
     <ProContainer>
       <WallContainer>
@@ -71,20 +74,27 @@ const ProfileComponent = () => {
       <ProfileContent>
         <DescDialog userId={userId} />
         <ProfileImg />
-        <ProfileElement>
-          <h3>{userName}</h3>
-        </ProfileElement>
-        <ProfileElement>
-          <h3>Joined At</h3>
-          <p>{creationDate}</p>
-        </ProfileElement>
-        <ProfileElement>
-          <h3>Motto</h3>
-          <p>{desc}</p>
-        </ProfileElement>
-        <ProfileElement>
-          <FormDialog />
-        </ProfileElement>
+        {user ? (
+          <>
+            <ProfileElement>
+              <h3>UserName</h3>
+              <h3>{user?.userName}</h3>
+            </ProfileElement>
+            <ProfileElement>
+              <h3>Joined At</h3>
+              <p>{user?.creationDate}</p>
+            </ProfileElement>
+            <ProfileElement>
+              <h3>Motto</h3>
+              <p>{user?.description}</p>
+            </ProfileElement>
+            <ProfileElement>
+              <FormDialog />
+            </ProfileElement>
+          </>
+        ) : (
+          <Animations />
+        )}
       </ProfileContent>
     </ProContainer>
   );

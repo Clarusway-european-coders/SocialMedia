@@ -15,7 +15,7 @@ export default function FormDialog() {
   const [message, setMessage] = useState("");
 
   const { userName, userId } = useSelector((state) => state.auth);
-  console.log(userName);
+  // console.log(userName);
   const handleClickOpen = () => {
     setOpen(true);
   };

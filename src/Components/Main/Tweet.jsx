@@ -48,7 +48,7 @@ const Icon = styled.div`
   cursor: pointer;
 `;
 const Tweet = ({ item }) => {
-  console.log(item);
+  // console.log(item);
   return (
     <TweetContainer>
       <ProfilePicture reviewIcon={ProfileImg} />

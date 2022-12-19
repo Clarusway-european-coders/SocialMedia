@@ -21,7 +21,7 @@ export async function getTweets() {
     snapshot.forEach((childSnapshot) => {
       tweets.push(childSnapshot.val());
     });
-    console.log(tweets);
+    // console.log(tweets);
   });
   return tweets;
 }

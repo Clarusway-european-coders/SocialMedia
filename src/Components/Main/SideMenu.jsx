@@ -60,7 +60,7 @@ const SideMenu = () => {
         <img src={Profile} alt="Profile" />
         <h3>Profile</h3>
       </SideElement>
-      <SideElement>
+      <SideElement onClick={() => navigate("/main")}>
         <img src={Feed} alt="Feed" />
         <h3>Feed</h3>
       </SideElement>
