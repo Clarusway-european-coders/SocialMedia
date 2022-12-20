@@ -60,7 +60,7 @@ const ProfileComponent = () => {
 
   useEffect(() => {
     const dbref = ref(db, "users/" + userId);
-
+    console.log("Inside the profile compoennte");
     onValue(dbref, (snapshot) => {
       setUser(snapshot.val());
     });

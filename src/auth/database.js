@@ -28,15 +28,8 @@ export async function getUser(userId) {
   const dbref = ref(db, "users/" + userId);
   onValue(dbref, (snapshot) => {
     data = snapshot.val();
-    // console.log(data);
   });
   return data;
-  // let data = null;
-  // onValue(user, (snapshot) => {
-  //   data = snapshot.val();
-  // });
-  // console.log(data);
-  // return data;
 }
 
 export default writeUserData;

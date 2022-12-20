@@ -1,4 +1,6 @@
-import React from "react";
+import { getDatabase, onValue, ref } from "firebase/database";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import ProfileImg from "/src/assets/Images/profile1.webp";
 
@@ -39,11 +41,21 @@ const ProfileInfo = styled.p`
   font-size: 1rem;
 `;
 const SideProfile = () => {
+  const [user, setUser] = useState();
+  const { userId } = useSelector((state) => state.auth);
+  const db = getDatabase();
+  useEffect(() => {
+    const dbref = ref(db, "users/" + userId);
+    console.log("Inside the profile compoennte");
+    onValue(dbref, (snapshot) => {
+      setUser(snapshot.val());
+    });
+  }, []);
   return (
     <ProfilContainer>
       <ProfilElement prime>
         <ProfilePicture reviewIcon={ProfileImg} />
-        <ProfileTag>Some Name</ProfileTag>
+        <ProfileTag>{user?.userName}</ProfileTag>
       </ProfilElement>
       <ProfilElement>
         <ProfileTag>Tweet Count</ProfileTag>
@@ -51,13 +63,11 @@ const SideProfile = () => {
       </ProfilElement>
       <ProfilElement>
         <ProfileTag>Joined at</ProfileTag>
-        <ProfileInfo>10.10.1997</ProfileInfo>
+        <ProfileInfo>{user?.creationDate}</ProfileInfo>
       </ProfilElement>
       <ProfilElement>
         <ProfileTag>Description</ProfileTag>
-        <ProfileInfo>
-          Lorem ipsum dolor sit amet consectetur adipisicing.
-        </ProfileInfo>
+        <ProfileInfo>{user?.description}</ProfileInfo>
       </ProfilElement>
     </ProfilContainer>
   );

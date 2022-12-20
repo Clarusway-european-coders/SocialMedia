@@ -38,7 +38,7 @@ const Main = () => {
             {loading && <TweetLoading />}
             {twits &&
               twits.map((item, key) => {
-                return <Tweet item={item} key={key} />;
+                return <Tweet item={item[0]} id={item[1]} key={item[1]} />;
               })}
           </Box>
 
