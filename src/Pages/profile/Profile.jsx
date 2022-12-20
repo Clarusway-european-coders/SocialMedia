@@ -22,9 +22,11 @@ const Profile = () => {
       .then((list) => {
         console.log(list);
         let newArray = [];
-        newArray = list.filter((item) => item.userId === userId);
+        let secondArray = [];
+        newArray = list.filter((item) => item[0].userId === userId);
         console.log(newArray);
-        setPersonalTweets(newArray);
+        newArray.map((item) => secondArray.push(item[0]));
+        setPersonalTweets(secondArray);
         dispatch(setLoading(false));
       })
       // setTwits(list)})

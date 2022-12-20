@@ -47,6 +47,7 @@ All the related features will be handled via Firebase.
 - When a user tweets something on profile page it doesn't automatically display the new tweet.
 - On profile page clicking on profile sends to a non existing page.
 - Tweets are not displayed according to their published date. [done]
+- Users can like tweets more than once.
 
 ## Missing features
 

@@ -1,4 +1,14 @@
-import { child, get, getDatabase, push, ref, set } from "firebase/database";
+import {
+  child,
+  get,
+  getDatabase,
+  onValue,
+  push,
+  ref,
+  remove,
+  set,
+  update,
+} from "firebase/database";
 import { nanoid } from "nanoid";
 
 const db = getDatabase();
@@ -23,17 +33,21 @@ export function pushMethod(userId, name, message) {
     userId: userId,
     date: new Date().toDateString(),
     profile_picture: "",
-    like: 0,
-    retweet: 0,
+    like: +0,
+    retweet: +0,
     message,
     TIMESTAMP: new Date().getTime(),
   });
 }
 export async function likeTweet(userId, tweetId) {
-  console.log("liked a tweet");
   set(ref(db, `users/${userId}/likedTweets/${tweetId}`), {
     liked: true,
   });
+}
+export async function removeLikeTweet(userId, tweetId) {
+  const tweetRef = ref(db, `users/${userId}/likedTweets/${tweetId}`);
+
+  remove(tweetRef);
 }
 
 export async function getTweets() {
@@ -41,15 +55,56 @@ export async function getTweets() {
   let tweets = [];
   await get(child(dbRef, "tweets")).then((snapshot) => {
     snapshot.forEach((childSnapshot) => {
-      // console.log(childSnapshot.key);
       tweets.push([childSnapshot.val(), childSnapshot.key]);
     });
     // console.log(tweets);
   });
-  return tweets.sort((a, b) => b.TIMESTAMP - a.TIMESTAMP);
+  return tweets.sort((a, b) => b[0].TIMESTAMP - a[0].TIMESTAMP);
 }
 export default writeTweet;
 
-export async function addLike(tweetId, userId) {
-  await update(ref(db, `users/${userId}/`), { tweetId: true });
+export async function addLike(tweetId) {
+  const previousLike = ref(db, "tweets/" + tweetId + "/like");
+  await get(previousLike, (snapshot) => {
+    data = snapshot.val();
+  }).then((value) => {
+    // console.log(value.val());
+    update(ref(db, `tweets/${tweetId}/`), { like: value.val() + 1 });
+  });
+}
+export async function deleteLike(tweetId) {
+  // This should also remove the liked tweets from the user's object
+  const previousLike = ref(db, "tweets/" + tweetId + "/like");
+  await get(previousLike, (snapshot) => {
+    data = snapshot.val();
+  }).then((value) => {
+    // console.log(value.val());
+    update(ref(db, `tweets/${tweetId}/`), { like: value.val() - 1 });
+  });
+}
+// export function ReadDesc(userId) {
+//   const userDesc = ref(db, "users/" + userId + "/description");
+//   let data = null;
+//   onValue(userDesc, (snapshot) => {
+//     data = snapshot.val();
+//   });
+//   return data;
+export async function checkLike(userId, tweetId) {
+  // console.log("check a tweet");
+  const previousLike = ref(db, "users/" + userId + "/likedTweets");
+  await get(previousLike, (snapshot) => {
+    const data = snapshot.val();
+  }).then((value) => {
+    // console.log(value.val());
+    let likedTweetsArray = Object.entries(value.val());
+    // console.log(likedTweetsArray);
+    likedTweetsArray.map((likedTweets) => {
+      // console.log("From the list " + likedTweets);
+      // console.log(tweetId);
+      likedTweets?.[0] == tweetId
+        ? (deleteLike(tweetId), removeLikeTweet(userId, tweetId))
+        : (likeTweet(userId, tweetId), addLike(tweetId));
+      // : (likeTweet(userId, tweetId), addLike(tweetId));
+    });
+  });
 }

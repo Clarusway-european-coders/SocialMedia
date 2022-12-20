@@ -5,7 +5,7 @@ import Like from "../../assets/Images/Like.png";
 import Calendar from "../../assets/Images/Calendar.png";
 import Cycle from "../../assets/Images/Cycle.png";
 import { Box } from "@mui/material";
-import { likeTweet } from "../../auth/tweet";
+import { addLike, checkLike, likeTweet } from "../../auth/tweet";
 import { useSelector } from "react-redux";
 
 const TweetContainer = styled.div`
@@ -56,6 +56,10 @@ const Tweet = ({ item, id }) => {
     setTweetId(id);
   }, []);
 
+  function handleLike() {
+    checkLike(userId, tweetid);
+  }
+
   return (
     <TweetContainer>
       <ProfilePicture reviewIcon={ProfileImg} />
@@ -63,7 +67,7 @@ const Tweet = ({ item, id }) => {
         <ProfileTag>{item?.username}</ProfileTag>
         <p>{item?.message}</p>
         <IconDiv>
-          <IconContainer onClick={() => likeTweet(userId, tweetid)}>
+          <IconContainer onClick={handleLike}>
             <Icon>
               <img src={Like} alt="" />
             </Icon>

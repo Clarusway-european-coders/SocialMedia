@@ -26,8 +26,8 @@ const Main = () => {
     // That fixed the problem.
   }, []);
 
-  console.log("The twits is below");
-  console.log(twits);
+  // console.log("The twits is below");
+  // console.log(twits);
 
   return (
     <MainContainer>
