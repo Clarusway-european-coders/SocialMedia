@@ -96,6 +96,8 @@ export async function checkLike(userId, tweetId) {
     } else {
       let likedTweetsArray = Object.entries(value.val());
       function likeCheck(tweetId) {
+        // This functions check the likedTweets array whether the user has already added the tweet.
+        // if yes it can't find the tweet then it adds the tweet if not removes it.
         console.log("Like Check is fired");
         return likedTweetsArray.every((tweet) => tweet[0] !== tweetId);
       }
