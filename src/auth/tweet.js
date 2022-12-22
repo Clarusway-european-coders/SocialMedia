@@ -39,12 +39,15 @@ export function pushMethod(userId, name, message) {
     TIMESTAMP: new Date().getTime(),
   });
 }
-export async function likeTweet(userId, tweetId) {
+export function likeTweet(userId, tweetId) {
+  console.log("Tweet like is added to user");
+  console.log(userId);
   set(ref(db, `users/${userId}/likedTweets/${tweetId}`), {
     liked: true,
   });
 }
 export async function removeLikeTweet(userId, tweetId) {
+  console.log("Remove function fired");
   const tweetRef = ref(db, `users/${userId}/likedTweets/${tweetId}`);
 
   remove(tweetRef);
@@ -92,19 +95,23 @@ export async function deleteLike(tweetId) {
 export async function checkLike(userId, tweetId) {
   // console.log("check a tweet");
   const previousLike = ref(db, "users/" + userId + "/likedTweets");
+
   await get(previousLike, (snapshot) => {
     const data = snapshot.val();
   }).then((value) => {
-    // console.log(value.val());
-    let likedTweetsArray = Object.entries(value.val());
-    // console.log(likedTweetsArray);
-    likedTweetsArray.map((likedTweets) => {
-      // console.log("From the list " + likedTweets);
-      // console.log(tweetId);
-      likedTweets?.[0] == tweetId
-        ? (deleteLike(tweetId), removeLikeTweet(userId, tweetId))
-        : (likeTweet(userId, tweetId), addLike(tweetId));
-      // : (likeTweet(userId, tweetId), addLike(tweetId));
-    });
+    console.log(value.val());
+    if (value.val() == null) {
+      likeTweet(userId, tweetId), addLike(tweetId);
+    } else {
+      let likedTweetsArray = Object.entries(value.val());
+      function likeCheck(tweetId) {
+        console.log("Like Check is fired");
+        return likedTweetsArray.every((tweet) => tweet[0] !== tweetId);
+      }
+      console.log(likeCheck(tweetId));
+      likeCheck(tweetId)
+        ? (likeTweet(userId, tweetId), addLike(tweetId))
+        : (deleteLike(tweetId), removeLikeTweet(userId, tweetId));
+    }
   });
 }
