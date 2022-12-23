@@ -50,6 +50,7 @@ All the related features will be handled via Firebase.
 - Users can like tweets more than once. [done]
 - Other tweet users profile name is not visible nor othes can visit it.
 - Megaphone disables the home button on the main page.
+- The liked state of the tweet is not consistent with the state of the db.
 
 ## Missing features
 
