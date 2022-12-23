@@ -6,7 +6,7 @@ const MegaPhoneContainer = styled.div`
   position: absolute;
   left: 0;
   bottom: 5%;
-  z-index: 0;
+  z-index: -1;
   @media screen and (max-width: 1250px) {
     width: 60%;
     bottom: 20%;

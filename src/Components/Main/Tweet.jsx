@@ -5,8 +5,9 @@ import Like from "../../assets/Images/Like.png";
 import Calendar from "../../assets/Images/Calendar.png";
 import Cycle from "../../assets/Images/Cycle.png";
 import { Box } from "@mui/material";
-import { addLike, checkLike, likeTweet } from "../../auth/tweet";
+import { checkLike } from "../../auth/tweet";
 import { useSelector } from "react-redux";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 const TweetContainer = styled.div`
   /* ... */
@@ -51,12 +52,28 @@ const Icon = styled.div`
 `;
 const Tweet = ({ item, id }) => {
   const [tweetid, setTweetId] = useState();
+  const [liked, setLiked] = useState(false);
+  // const [currentLike, setCurrentLike] = useState(item?.like);
   const { userId } = useSelector((state) => state.auth);
+
   useEffect(() => {
     setTweetId(id);
   }, []);
 
   function handleLike() {
+    const db = getDatabase();
+    const userRef = ref(db, "users/" + userId + "/likedTweets");
+    let toogle = null;
+    onValue(userRef, (snapshot) => {
+      const data = snapshot.val();
+      let likedTweetsArray = Object.entries(data);
+      function likeCheck(tweetId) {
+        return likedTweetsArray.every((tweet) => tweet[0] !== tweetId);
+      }
+      toogle = likeCheck(id);
+    });
+    setLiked(toogle);
+    console.log(`toggle is ${toogle}`);
     checkLike(userId, tweetid);
   }
 

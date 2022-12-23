@@ -39,7 +39,7 @@ export function pushMethod(userId, name, message) {
   });
 }
 export function likeTweet(userId, tweetId) {
-  console.log(userId);
+  // console.log(userId);
   set(ref(db, `users/${userId}/likedTweets/${tweetId}`), {
     liked: true,
   });
@@ -88,7 +88,6 @@ export async function checkLike(userId, tweetId) {
   await get(previousLike, (snapshot) => {
     const data = snapshot.val();
   }).then((value) => {
-    console.log(value.val());
     if (value.val() == null) {
       // This condition is necessaary because new users will have a null value for liked tweets.
       // So we need to addd it to the db right away.
@@ -98,7 +97,6 @@ export async function checkLike(userId, tweetId) {
       function likeCheck(tweetId) {
         // This functions check the likedTweets array whether the user has already added the tweet.
         // if yes it can't find the tweet then it adds the tweet if not removes it.
-        console.log("Like Check is fired");
         return likedTweetsArray.every((tweet) => tweet[0] !== tweetId);
       }
       likeCheck(tweetId)
