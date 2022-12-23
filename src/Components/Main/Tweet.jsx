@@ -64,6 +64,8 @@ const Tweet = ({ item, id }) => {
     const db = getDatabase();
     const userRef = ref(db, "users/" + userId + "/likedTweets");
     let toogle = null;
+    // In the code below, we are listing for changes in the db for liking or unliking tweets.
+    // If the current tweet id is not present in the db then stat is set to false.
     onValue(userRef, (snapshot) => {
       const data = snapshot.val();
       let likedTweetsArray = Object.entries(data);
