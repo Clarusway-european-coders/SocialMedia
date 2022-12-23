@@ -46,7 +46,7 @@ const BottomNav = () => {
         <img src={Profile} />
       </IconContainer>
       <IconContainer>
-        <img src={Feed} />
+        <img src={Feed} onClick={() => navigate("/main")} />
       </IconContainer>
       <IconContainer onClick={handleSignOut}>
         <img src={Logout} />
