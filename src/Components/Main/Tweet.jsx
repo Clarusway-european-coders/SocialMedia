@@ -52,8 +52,8 @@ const Icon = styled.div`
 `;
 const Tweet = ({ item, id }) => {
   const [tweetid, setTweetId] = useState();
-  const [liked, setLiked] = useState(false);
-  const [currentLike, setCurrentLike] = useState();
+  const [liked, setLiked] = useState();
+  const [currentLike, setCurrentLike] = useState(); // Sets the like amount from db.
   const { userId } = useSelector((state) => state.auth);
 
   function isAlreadyLiked(id) {
@@ -62,24 +62,25 @@ const Tweet = ({ item, id }) => {
     const userRef = ref(db, "users/" + userId + "/likedTweets");
     onValue(userRef, (snapshot) => {
       const data = snapshot.val();
+      // console.log(data);
       if (data == null) return;
       let likedTweetsArray = Object.entries(data);
       function likeCheck(tweetId) {
+        console.log("like check fired");
         return likedTweetsArray.every((tweet) => tweet[0] !== tweetId);
       }
       toogle = likeCheck(id);
     });
     setLiked(toogle);
     liked
-      ? setCurrentLike((currentValue) => currentValue + 1)
-      : setCurrentLike((currentValue) => currentValue - 1);
+      ? setCurrentLike((currentValue) => currentValue - 1)
+      : setCurrentLike((currentValue) => currentValue + 1);
     console.log(`toggle is ${toogle}`);
   }
 
   useEffect(() => {
     setTweetId(id);
     isAlreadyLiked(id);
-    console.log(item?.like);
     setCurrentLike(item?.like);
   }, []);
 
@@ -88,7 +89,7 @@ const Tweet = ({ item, id }) => {
     // If the current tweet id is not present in the db then stat is set to false.
 
     checkLike(userId, tweetid);
-    isAlreadyLiked();
+    isAlreadyLiked(id);
   }
 
   return (
