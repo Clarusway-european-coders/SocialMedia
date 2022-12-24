@@ -51,6 +51,7 @@ All the related features will be handled via Firebase.
 - Other tweet users profile name is not visible nor othes can visit it.
 - Megaphone disables the home button on the main page.
 - The liked state of the tweet is not consistent with the state of the db.
+  - DB works as intended but it doesn't catch the first state of the tweet.
 
 ## Missing features
 

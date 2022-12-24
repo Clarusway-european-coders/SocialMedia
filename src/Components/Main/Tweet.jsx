@@ -52,7 +52,7 @@ const Icon = styled.div`
 `;
 const Tweet = ({ item, id }) => {
   const [tweetid, setTweetId] = useState();
-  const [liked, setLiked] = useState();
+  const [liked, setLiked] = useState(false);
   const [currentLike, setCurrentLike] = useState(); // Sets the like amount from db.
   const { userId } = useSelector((state) => state.auth);
 
@@ -62,16 +62,19 @@ const Tweet = ({ item, id }) => {
     const userRef = ref(db, "users/" + userId + "/likedTweets");
     onValue(userRef, (snapshot) => {
       const data = snapshot.val();
-      // console.log(data);
       if (data == null) return;
       let likedTweetsArray = Object.entries(data);
+      let newHolderArray = [];
+      likedTweetsArray.map((item) => newHolderArray.push(item[0]));
+
       function likeCheck(tweetId) {
-        console.log("like check fired");
-        return likedTweetsArray.every((tweet) => tweet[0] !== tweetId);
+        return newHolderArray.includes(tweetId);
       }
       toogle = likeCheck(id);
     });
-    setLiked(toogle);
+    // console.log(toogle);
+    setLiked((prev) => (prev = toogle));
+    console.log("Is it what it is?");
     liked
       ? setCurrentLike((currentValue) => currentValue - 1)
       : setCurrentLike((currentValue) => currentValue + 1);
@@ -82,7 +85,7 @@ const Tweet = ({ item, id }) => {
     setTweetId(id);
     isAlreadyLiked(id);
     setCurrentLike(item?.like);
-  }, []);
+  }, [liked]);
 
   function handleLike() {
     // In the code below, we are listing for changes in the db for liking or unliking tweets.
