@@ -29,7 +29,6 @@ const Profile = () => {
         setPersonalTweets(secondArray);
         dispatch(setLoading(false));
       })
-      // setTwits(list)})
       .catch((error) => console.log(error.message));
   }, []);
   console.log(personalTweets);

@@ -8,6 +8,7 @@ import { Box } from "@mui/material";
 import { checkLike } from "../../auth/tweet";
 import { useSelector } from "react-redux";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { checkRetweet } from "../../auth/retweet";
 
 const TweetContainer = styled.div`
   /* ... */
@@ -73,9 +74,7 @@ const Tweet = ({ item, id }) => {
       return newHolderArray.includes(tweetId);
     }
     toogle = likeCheck(id);
-    // console.log(toogle);
 
-    console.log("Is it what it is?");
     liked
       ? setCurrentLike((currentValue) => currentValue - 1)
       : setCurrentLike((currentValue) => currentValue + 1);
@@ -95,7 +94,10 @@ const Tweet = ({ item, id }) => {
     checkLike(userId, tweetid);
     isAlreadyLiked(id);
   }
-
+  function handleRetweet() {
+    console.log("retweeted");
+    checkRetweet(userId, id);
+  }
   return (
     <TweetContainer>
       <ProfilePicture reviewIcon={ProfileImg} />
@@ -109,7 +111,7 @@ const Tweet = ({ item, id }) => {
             </Icon>
             <p>{currentLike}</p>
           </IconContainer>
-          <IconContainer>
+          <IconContainer onClick={handleRetweet}>
             <Icon>
               <img src={Cycle} alt="" />
             </Icon>
