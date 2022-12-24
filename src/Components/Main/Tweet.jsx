@@ -55,25 +55,26 @@ const Tweet = ({ item, id }) => {
   const [liked, setLiked] = useState(false);
   const [currentLike, setCurrentLike] = useState(); // Sets the like amount from db.
   const { userId } = useSelector((state) => state.auth);
+  let toogle = null;
 
   function isAlreadyLiked(id) {
     const db = getDatabase();
-    let toogle = null;
+
+    let newHolderArray = [];
     const userRef = ref(db, "users/" + userId + "/likedTweets");
     onValue(userRef, (snapshot) => {
       const data = snapshot.val();
       if (data == null) return;
       let likedTweetsArray = Object.entries(data);
-      let newHolderArray = [];
-      likedTweetsArray.map((item) => newHolderArray.push(item[0]));
 
-      function likeCheck(tweetId) {
-        return newHolderArray.includes(tweetId);
-      }
-      toogle = likeCheck(id);
+      likedTweetsArray.map((item) => newHolderArray.push(item[0]));
     });
+    function likeCheck(tweetId) {
+      return newHolderArray.includes(tweetId);
+    }
+    toogle = likeCheck(id);
     // console.log(toogle);
-    setLiked((prev) => (prev = toogle));
+
     console.log("Is it what it is?");
     liked
       ? setCurrentLike((currentValue) => currentValue - 1)
@@ -85,12 +86,12 @@ const Tweet = ({ item, id }) => {
     setTweetId(id);
     isAlreadyLiked(id);
     setCurrentLike(item?.like);
-  }, [liked]);
+  }, []);
 
   function handleLike() {
     // In the code below, we are listing for changes in the db for liking or unliking tweets.
     // If the current tweet id is not present in the db then stat is set to false.
-
+    setLiked((prev) => (prev = !toogle));
     checkLike(userId, tweetid);
     isAlreadyLiked(id);
   }
