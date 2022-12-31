@@ -8,7 +8,7 @@ import { Box } from "@mui/material";
 import { checkLike } from "../../auth/tweet";
 import { useSelector } from "react-redux";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { checkRetweet } from "../../auth/retweet";
+import { checkRetweet, checkTweet } from "../../auth/retweet";
 
 const TweetContainer = styled.div`
   /* ... */
@@ -55,7 +55,9 @@ const Tweet = ({ item, id }) => {
   const [tweetid, setTweetId] = useState();
   const [liked, setLiked] = useState(false);
   const [currentLike, setCurrentLike] = useState(); // Sets the like amount from db.
+  const [currentRetweet, setCurrentRetweet] = useState();
   const { userId } = useSelector((state) => state.auth);
+
   let toogle = null;
 
   function isAlreadyLiked(id) {
@@ -85,6 +87,7 @@ const Tweet = ({ item, id }) => {
     setTweetId(id);
     isAlreadyLiked(id);
     setCurrentLike(item?.like);
+    setCurrentRetweet(item?.retweet);
   }, []);
 
   function handleLike() {
@@ -94,9 +97,14 @@ const Tweet = ({ item, id }) => {
     checkLike(userId, tweetid);
     isAlreadyLiked(id);
   }
-  function handleRetweet() {
-    console.log("retweeted");
-    checkRetweet(userId, id);
+  async function handleRetweet() {
+    // checkTweet(userId, id);
+    // console.log("retweeted");
+    const handle = await checkRetweet(userId, id);
+    handle
+      ? setCurrentRetweet(currentRetweet + 1)
+      : setCurrentRetweet(currentRetweet - 1);
+    console.log(handle);
   }
   return (
     <TweetContainer>
@@ -115,7 +123,7 @@ const Tweet = ({ item, id }) => {
             <Icon>
               <img src={Cycle} alt="" />
             </Icon>
-            <p>{item?.retweet}</p>
+            <p>{currentRetweet}</p>
           </IconContainer>
           <IconContainer>
             <Icon>
