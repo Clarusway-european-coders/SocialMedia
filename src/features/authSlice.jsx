@@ -22,29 +22,27 @@ const authSlice = createSlice({
   // if the name the key values are the same you can just write one of them.
   // setUser the key value and the object corresponding to it is the value.
   reducers: {
-    setUser: (state, action) => {
-      state.user = action.payload;
+    fetchStart: (state) => {
+      state.loading = true;
+      state.error = false;
     },
-    setUserId: (state, action) => {
-      state.userId = action.payload;
-    },
-    setUserDate: (state, action) => {
-      state.creationDate = action.payload;
-    },
-    setLoading: (state, action) => {
-      state.loading = action.payload;
+    fetchSuccess: (state, { payload }) => {
+      state.loading = false;
+      state.user = true;
+      state.userId = payload.userId;
+      state.userName = payload.userName;
+      state.creationDate = payload.creationDate;
     },
     clearUser: (state) => {
       state.user = false;
       state.userName = null;
       state.userId = null;
       state.creationDate = null;
+      state.error = false;
     },
-    setUserName: (state, action) => {
-      state.userName = action.payload;
-    },
-    setDate: (state, action) => {
-      state.creationDate = action.payload;
+    fetchError: (state) => {
+      state.error = true;
+      state.user = false;
     },
   },
   // extraReducers: (builder) => {
@@ -62,13 +60,6 @@ const authSlice = createSlice({
   //     });
   // },
 });
-export const {
-  setUser,
-  clearUser,
-  setUserId,
-  setUserName,
-  setDate,
-  setUserDate,
-  setLoading,
-} = authSlice.actions;
+export const { fetchStart, fetchSuccess, fetchError, clearUser } =
+  authSlice.actions;
 export default authSlice.reducer;

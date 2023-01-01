@@ -5,10 +5,8 @@ import Like from "../../assets/Images/Like.png";
 import Calendar from "../../assets/Images/Calendar.png";
 import Cycle from "../../assets/Images/Cycle.png";
 import { Box } from "@mui/material";
-import { checkLike } from "../../auth/tweet";
 import { useSelector } from "react-redux";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { checkRetweet, checkTweet } from "../../auth/retweet";
 
 const TweetContainer = styled.div`
   /* ... */
@@ -90,22 +88,8 @@ const Tweet = ({ item, id }) => {
     setCurrentRetweet(item?.retweet);
   }, []);
 
-  function handleLike() {
-    // In the code below, we are listing for changes in the db for liking or unliking tweets.
-    // If the current tweet id is not present in the db then stat is set to false.
-    setLiked((prev) => (prev = !toogle));
-    checkLike(userId, tweetid);
-    isAlreadyLiked(id);
-  }
-  async function handleRetweet() {
-    // checkTweet(userId, id);
-    // console.log("retweeted");
-    const handle = await checkRetweet(userId, id);
-    handle
-      ? setCurrentRetweet(currentRetweet + 1)
-      : setCurrentRetweet(currentRetweet - 1);
-    console.log(handle);
-  }
+  function handleLike() {}
+  function handleRetweet() {}
   return (
     <TweetContainer>
       <ProfilePicture reviewIcon={ProfileImg} />

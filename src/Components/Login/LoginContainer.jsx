@@ -14,8 +14,9 @@ import { Formik, Form } from "formik";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import Register from "../../auth/register";
-import Login, { LoginWithGoogle } from "../../auth/login";
+// import Login, { LoginWithGoogle } from "../../auth/login";
 import google from "../../assets/Images/google.png";
+import useLoginHook from "../../Hooks/LoginHook";
 
 const loginSchema = (condition) =>
   yup.object().shape({
@@ -48,7 +49,7 @@ const LoginContainer = ({ isLogin }) => {
   const navigate = useNavigate();
   const formRef = useRef();
   const dispatch = useDispatch();
-
+  const { LoginUser, LoginWithGoogle } = useLoginHook();
   // You can not initilize react hooks inside js files but you can send them as arguments.
   //
   return (
@@ -60,7 +61,7 @@ const LoginContainer = ({ isLogin }) => {
         onSubmit={(values, actions) => {
           console.log("ala");
           if (isLogin) {
-            Login(values, navigate, dispatch);
+            LoginUser(values);
           } else {
             console.log("register");
             Register(values, navigate, dispatch);

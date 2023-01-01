@@ -8,7 +8,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
-import writeTweet, { pushMethod } from "../../auth/tweet";
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
@@ -33,7 +32,6 @@ export default function FormDialog() {
   };
   const handleSubmit = () => {
     setOpen(false);
-    pushMethod(userId, userName, message);
     // writeTweet(userId, userName, message);
     handleClose();
   };

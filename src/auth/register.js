@@ -1,10 +1,10 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import {
-  setUser,
-  setUserId,
-  setUserName,
-  setDate,
-} from "../features/authSlice";
+// import {
+//   setUser,
+//   setUserId,
+//   setUserName,
+//   setDate,
+// } from "../features/authSlice";
 import { toastSuccessNotify, toastWarnNotify } from "../helpers/ToastNotify";
 import writeUserData from "./database";
 import { Auth } from "./firebase";

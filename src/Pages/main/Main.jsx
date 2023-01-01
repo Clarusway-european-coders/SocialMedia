@@ -5,9 +5,7 @@ import SideMenu from "../../Components/Main/SideMenu";
 import SideProfile from "../../Components/Main/SideProfile";
 import Tweet from "../../Components/Main/Tweet";
 import BottomNav from "../../Components/Main/BottomNav";
-import { getTweets } from "../../auth/tweet";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../../features/authSlice";
 import TweetLoading from "../profile/TweetLoading";
 
 const Main = () => {
@@ -16,15 +14,7 @@ const Main = () => {
   const { loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(setLoading(true));
-    getTweets()
-      .then((list) => setTwits(list), dispatch(setLoading(false)))
-      .catch((error) => console.log(error.message));
-    // In my earlier attempt, I tried setTwits(getTweets()) but it wasn't working,
-    // To fixed that problem I have set the getTweets async and awaited the result then assigned them
-    // That fixed the problem.
-  }, []);
+  useEffect(() => {}, []);
 
   // console.log("The twits is below");
   // console.log(twits);

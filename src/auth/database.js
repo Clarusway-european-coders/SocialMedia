@@ -20,7 +20,7 @@ export function ReadDesc(userId) {
   onValue(userDesc, (snapshot) => {
     data = snapshot.val();
   });
-  return data;
+  return { ...data, userId };
 }
 export async function getUser(userId) {
   // user = ref(db, "users/" + userId);
@@ -29,7 +29,7 @@ export async function getUser(userId) {
   onValue(dbref, (snapshot) => {
     data = snapshot.val();
   });
-  return data;
+  return { ...data, userId };
 }
 
 export default writeUserData;
