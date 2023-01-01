@@ -87,10 +87,10 @@ const Tweet = ({ item, id }) => {
       ? setCurrentLike((currentValue) => currentValue - 1)
       : setCurrentLike((currentValue) => currentValue + 1);
   }
-  function handleRetweet() {
-    checkRetweet(userId, id, retweeted);
+  async function handleRetweet() {
+    await checkRetweet(userId, id, retweeted);
     setRetweeted((prev) => !prev);
-    !retweeted
+    retweeted
       ? setRetweetCount((currentValue) => currentValue - 1)
       : setRetweetCount((currentValue) => currentValue + 1);
   }

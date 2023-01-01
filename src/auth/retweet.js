@@ -52,6 +52,6 @@ export async function deleteRetweet(tweetId) {
 export async function checkRetweet(userId, tweetId, toggle) {
   console.log(toggle);
   toggle
-    ? (retweet(userId, tweetId), addRetweet(tweetId))
-    : (deleteRetweet(tweetId), removeRetweet(userId, tweetId));
+    ? (deleteRetweet(tweetId), removeRetweet(userId, tweetId))
+    : (retweet(userId, tweetId), addRetweet(tweetId));
 }
