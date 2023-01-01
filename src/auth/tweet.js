@@ -80,8 +80,7 @@ export async function deleteLike(tweetId) {
 }
 
 export async function checkLike(userId, tweetId, toggle) {
-  console.log(toggle);
   toggle
-    ? (likeTweet(userId, tweetId), addLike(tweetId))
-    : (deleteLike(tweetId), removeLikeTweet(userId, tweetId));
+    ? (deleteLike(tweetId), removeLikeTweet(userId, tweetId))
+    : (likeTweet(userId, tweetId), addLike(tweetId));
 }

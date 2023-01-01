@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import ProfileImg from "/src/assets/Images/profile1.webp";
 import Like from "../../assets/Images/Like.png";
 import Calendar from "../../assets/Images/Calendar.png";
@@ -51,6 +51,12 @@ const Icon = styled.div`
   height: 20px;
   width: 20px;
   cursor: pointer;
+  border-radius: 10rem;
+  ${(props) =>
+    (props.liked == true || props.retweeted == true) &&
+    css`
+      background-color: red;
+    `}
 `;
 const Tweet = ({ item, id }) => {
   const [tweetid, setTweetId] = useState();
@@ -62,24 +68,22 @@ const Tweet = ({ item, id }) => {
   const { isLiked, isRetweeted } = useTweetHooks();
 
   useEffect(() => {
-    setLiked(isLiked(userId, id));
-    setRetweeted(isRetweeted(userId, id));
+    // setLiked(isLiked(userId, id));
+    // setRetweeted(isRetweeted(userId, id));
+    //! When I called them like the above, it didn't work on page refresh. Thus it would be an
+    //! empty object. That caused problem with liked checking. For Async calls inside the useEffect
+    //! use .then to wait for the value then setState with the returned value.
+    isLiked(userId, id).then((data) => setLiked(data));
+    isRetweeted(userId, id).then((data) => setRetweeted(data));
     setTweetId(id);
     setCurrentLike(item?.like);
     setRetweetCount(item?.retweet);
   }, []);
 
-  function handleLike() {
-    // In the code below, we are listing for changes in the db for liking or unliking tweets.
-    // If the current tweet id is not present in the db then stat is set to false.
-
-    // checkLike(userId, tweetid);
-    // isAlreadyLiked(id);
-    // deneme(userId);
-    // getTweets();
-    checkLike(userId, id, liked);
+  async function handleLike() {
+    await checkLike(userId, id, liked);
     setLiked((prev) => !prev);
-    !liked
+    liked
       ? setCurrentLike((currentValue) => currentValue - 1)
       : setCurrentLike((currentValue) => currentValue + 1);
   }
@@ -98,13 +102,13 @@ const Tweet = ({ item, id }) => {
         <p>{item?.message}</p>
         <IconDiv>
           <IconContainer onClick={handleLike}>
-            <Icon>
+            <Icon liked={liked}>
               <img src={Like} alt="" />
             </Icon>
             <p>{currentLike}</p>
           </IconContainer>
           <IconContainer onClick={handleRetweet}>
-            <Icon>
+            <Icon retweeted={retweeted}>
               <img src={Cycle} alt="" />
             </Icon>
             <p>{retweetCount}</p>
