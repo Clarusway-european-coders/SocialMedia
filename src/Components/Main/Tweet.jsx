@@ -5,10 +5,11 @@ import Like from "../../assets/Images/Like.png";
 import Calendar from "../../assets/Images/Calendar.png";
 import Cycle from "../../assets/Images/Cycle.png";
 import { Box } from "@mui/material";
-import { checkLike } from "../../auth/tweet";
+import { checkLike, getTweets } from "../../auth/tweet";
 import { useSelector } from "react-redux";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { checkRetweet } from "../../auth/retweet";
+import useTweetHooks from "../../hooks/TweetHooks";
 
 const TweetContainer = styled.div`
   /* ... */
@@ -53,50 +54,41 @@ const Icon = styled.div`
 `;
 const Tweet = ({ item, id }) => {
   const [tweetid, setTweetId] = useState();
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState();
+  const [retweeted, setRetweeted] = useState();
+  const [retweetCount, setRetweetCount] = useState();
   const [currentLike, setCurrentLike] = useState(); // Sets the like amount from db.
   const { userId } = useSelector((state) => state.auth);
-  let toogle = null;
-
-  function isAlreadyLiked(id) {
-    const db = getDatabase();
-
-    let newHolderArray = [];
-    const userRef = ref(db, "users/" + userId + "/likedTweets");
-    onValue(userRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data == null) return;
-      let likedTweetsArray = Object.entries(data);
-
-      likedTweetsArray.map((item) => newHolderArray.push(item[0]));
-    });
-    function likeCheck(tweetId) {
-      return newHolderArray.includes(tweetId);
-    }
-    toogle = likeCheck(id);
-
-    liked
-      ? setCurrentLike((currentValue) => currentValue - 1)
-      : setCurrentLike((currentValue) => currentValue + 1);
-    console.log(`toggle is ${toogle}`);
-  }
+  const { isLiked, isRetweeted } = useTweetHooks();
 
   useEffect(() => {
+    setLiked(isLiked(userId, id));
+    setRetweeted(isRetweeted(userId, id));
     setTweetId(id);
-    isAlreadyLiked(id);
     setCurrentLike(item?.like);
+    setRetweetCount(item?.retweet);
   }, []);
 
   function handleLike() {
     // In the code below, we are listing for changes in the db for liking or unliking tweets.
     // If the current tweet id is not present in the db then stat is set to false.
-    setLiked((prev) => (prev = !toogle));
-    checkLike(userId, tweetid);
-    isAlreadyLiked(id);
+
+    // checkLike(userId, tweetid);
+    // isAlreadyLiked(id);
+    // deneme(userId);
+    // getTweets();
+    checkLike(userId, id, liked);
+    setLiked((prev) => !prev);
+    !liked
+      ? setCurrentLike((currentValue) => currentValue - 1)
+      : setCurrentLike((currentValue) => currentValue + 1);
   }
   function handleRetweet() {
-    console.log("retweeted");
-    checkRetweet(userId, id);
+    checkRetweet(userId, id, retweeted);
+    setRetweeted((prev) => !prev);
+    !retweeted
+      ? setRetweetCount((currentValue) => currentValue - 1)
+      : setRetweetCount((currentValue) => currentValue + 1);
   }
   return (
     <TweetContainer>
@@ -115,7 +107,7 @@ const Tweet = ({ item, id }) => {
             <Icon>
               <img src={Cycle} alt="" />
             </Icon>
-            <p>{item?.retweet}</p>
+            <p>{retweetCount}</p>
           </IconContainer>
           <IconContainer>
             <Icon>

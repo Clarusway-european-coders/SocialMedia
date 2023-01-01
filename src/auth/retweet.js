@@ -49,30 +49,9 @@ export async function deleteRetweet(tweetId) {
     update(ref(db, `tweets/${tweetId}/`), { retweet: value.val() - 1 });
   });
 }
-export async function checkRetweet(userId, tweetId) {
-  const previousRetweet = ref(db, "users/" + userId + "/retweets");
-
-  await get(previousRetweet, (snapshot) => {
-    const data = snapshot.val();
-  }).then((value) => {
-    if (value.val() == null) {
-      // This condition is necessaary because new users will have a null value for liked tweets.
-      // So we need to addd it to the db right away.
-      retweet(userId, tweetId), addRetweet(tweetId);
-    } else {
-      let retweetArray = Object.entries(value.val());
-      let holderArray = [];
-      retweetArray.map((item) => holderArray.push(item[0]));
-
-      function tweetCheck(retweetId) {
-        // This functions check the likedTweets array whether the user has already added the tweet.
-        // if yes it can't find the tweet then it adds the tweet if not removes it.
-        return holderArray.includes(retweetId);
-      }
-      console.log(tweetCheck(tweetId));
-      tweetCheck(tweetId)
-        ? (deleteRetweet(tweetId), removeRetweet(userId, tweetId))
-        : (retweet(userId, tweetId), addRetweet(tweetId));
-    }
-  });
+export async function checkRetweet(userId, tweetId, toggle) {
+  console.log(toggle);
+  toggle
+    ? (retweet(userId, tweetId), addRetweet(tweetId))
+    : (deleteRetweet(tweetId), removeRetweet(userId, tweetId));
 }

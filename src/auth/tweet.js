@@ -79,29 +79,9 @@ export async function deleteLike(tweetId) {
   });
 }
 
-export async function checkLike(userId, tweetId) {
-  // This functions checks whether the user has already liked the tweet, if so, it will retract
-  // 1 point from the database and remove it from the user's liked tweets array.
-  // Otherwise it will add the tweet +1 and also places it in the users liked tweets array.
-  const previousLike = ref(db, "users/" + userId + "/likedTweets");
-
-  await get(previousLike, (snapshot) => {
-    const data = snapshot.val();
-  }).then((value) => {
-    if (value.val() == null) {
-      // This condition is necessaary because new users will have a null value for liked tweets.
-      // So we need to addd it to the db right away.
-      likeTweet(userId, tweetId), addLike(tweetId);
-    } else {
-      let likedTweetsArray = Object.entries(value.val());
-      function likeCheck(tweetId) {
-        // This functions check the likedTweets array whether the user has already added the tweet.
-        // if yes it can't find the tweet then it adds the tweet if not removes it.
-        return likedTweetsArray.every((tweet) => tweet[0] !== tweetId);
-      }
-      likeCheck(tweetId)
-        ? (likeTweet(userId, tweetId), addLike(tweetId))
-        : (deleteLike(tweetId), removeLikeTweet(userId, tweetId));
-    }
-  });
+export async function checkLike(userId, tweetId, toggle) {
+  console.log(toggle);
+  toggle
+    ? (likeTweet(userId, tweetId), addLike(tweetId))
+    : (deleteLike(tweetId), removeLikeTweet(userId, tweetId));
 }
