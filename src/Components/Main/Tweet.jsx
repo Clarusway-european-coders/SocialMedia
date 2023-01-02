@@ -4,26 +4,21 @@ import ProfileImg from "/src/assets/Images/profile1.webp";
 import Like from "../../assets/Images/Like.png";
 import Calendar from "../../assets/Images/Calendar.png";
 import Cycle from "../../assets/Images/Cycle.png";
-import { Box } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
 import { checkLike, getTweets } from "../../auth/tweet";
 import { useSelector } from "react-redux";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { checkRetweet } from "../../auth/retweet";
 import useTweetHooks from "../../hooks/TweetHooks";
+import { getProfileImg } from "../../auth/storage";
 
 const TweetContainer = styled.div`
   /* ... */
   border: 0.1px solid #f0efef;
   padding: 1rem;
-  /* margin: 1rem; */
   display: grid;
   position: relative;
   grid-template-columns: auto 1fr;
-  /* &::after {
-    content: "";
-    border: 1px solid #000;
-    height: 100vh;
-  } */
 `;
 const ProfilePicture = styled.div`
   width: 60px;
@@ -33,6 +28,16 @@ const ProfilePicture = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 100rem;
+  ${(props) =>
+    props.avatar &&
+    css`
+      background-image: url(${props.avatar});
+    `}
+  ${(props) =>
+    props.avatar ||
+    css`
+      background-image: url(/src/assets/Images/DProfile.png);
+    `}
 `;
 const ProfileTag = styled.h3`
   font-weight: 500;
@@ -60,6 +65,7 @@ const Icon = styled.div`
 `;
 const Tweet = ({ item, id }) => {
   const [tweetid, setTweetId] = useState();
+  const [avatar, setAvatar] = useState();
   const [liked, setLiked] = useState();
   const [retweeted, setRetweeted] = useState();
   const [retweetCount, setRetweetCount] = useState();
@@ -79,6 +85,7 @@ const Tweet = ({ item, id }) => {
     setTweetId(id);
     setCurrentLike(item?.like);
     setRetweetCount(item?.retweet);
+    getProfileImg(item?.userId).then((res) => setAvatar(res));
   }, []);
 
   async function handleLike() {
@@ -97,7 +104,7 @@ const Tweet = ({ item, id }) => {
   }
   return (
     <TweetContainer>
-      <ProfilePicture reviewIcon={ProfileImg} />
+      <ProfilePicture avatar={avatar} />
       <Box sx={{ marginLeft: "10px" }}>
         <ProfileTag>{item?.username}</ProfileTag>
         <p>{item?.message}</p>

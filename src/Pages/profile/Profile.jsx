@@ -21,7 +21,7 @@ const Profile = () => {
     dispatch(setLoading(true));
     getTweets()
       .then((list) => {
-        console.log(list);
+        // console.log(list);
         let newArray = [];
         let secondArray = [];
         newArray = list.filter(
@@ -32,7 +32,7 @@ const Profile = () => {
       })
       .catch((error) => console.log(error.message));
   }, [newTweetAdd]);
-  console.log(personalTweets);
+  // console.log(personalTweets);
   return (
     <MainContainer>
       <Container sx={{ padding: "2rem 1rem" }}>

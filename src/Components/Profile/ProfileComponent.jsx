@@ -1,9 +1,12 @@
+import { Button } from "@mui/material";
 import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { getUser, ReadDesc } from "../../auth/database";
+import { getProfileImg, getWallImg } from "../../auth/storage";
 import FormDialog from "../Dialog/FormDialog";
+import UploadModal from "../Modals/UploadModal";
 import DescDialog from "./Description";
 import Animations from "./Loading";
 import wallpaper from "/src/assets/Images/Wallpaper.jpg";
@@ -40,13 +43,26 @@ const ProfileImg = styled(IMG)`
   border-radius: 10rem;
   top: 0;
   transform: translate(50%, -50%);
-  background-image: url(/src/assets/Images/profile1.webp);
+  ${(props) =>
+    props.profileImg &&
+    css`
+      background-image: url(${props.profileImg});
+    `}
+  ${(props) =>
+    props.profileImg ||
+    css`
+      background-image: url(/src/assets/Images/DProfile.png);
+    `}
 `;
 const ProfileContent = styled.div`
   position: relative;
   padding-top: 3rem;
 `;
 const ProfileElement = styled.div`
+  display: ${(props) => (props.horizontal ? "flex" : "block")};
+  > * {
+    padding-right: ${(props) => (props.horizontal ? "1rem" : "0")};
+  }
   margin: 1rem;
   > h3 {
     font-weight: 600;
@@ -55,8 +71,10 @@ const ProfileElement = styled.div`
 
 const ProfileComponent = ({ setNewTweetAdd }) => {
   const db = getDatabase();
-  const { userName, creationDate, userId } = useSelector((state) => state.auth);
+  const { userId } = useSelector((state) => state.auth);
   const [user, setUser] = useState();
+  const [profileImg, setProfileImg] = useState(null);
+  const [profileWall, setProfileWall] = useState(null);
 
   useEffect(() => {
     const dbref = ref(db, "users/" + userId);
@@ -64,16 +82,21 @@ const ProfileComponent = ({ setNewTweetAdd }) => {
     onValue(dbref, (snapshot) => {
       setUser(snapshot.val());
     });
+    getProfileImg(userId).then((res) => setProfileImg(res));
+    getWallImg(userId).then((res) => setProfileWall(res));
   }, []);
-  console.log(user);
+
+  console.log(profileWall);
   return (
     <ProContainer>
       <WallContainer>
-        <img src={wallpaper} alt="Wallpaper" />
+        <img src={profileWall || wallpaper} alt="Wallpaper" />
       </WallContainer>
       <ProfileContent>
         <DescDialog userId={userId} />
-        <ProfileImg />
+        {profileImg && <ProfileImg profileImg={profileImg} />}
+        {!profileImg && <ProfileImg />}
+
         {user ? (
           <>
             <ProfileElement>
@@ -88,8 +111,15 @@ const ProfileComponent = ({ setNewTweetAdd }) => {
               <h3>Motto</h3>
               <p>{user?.description}</p>
             </ProfileElement>
-            <ProfileElement>
+            <ProfileElement horizontal>
               <FormDialog setNewTweetAdd={setNewTweetAdd} />
+              <UploadModal
+                setProfileImg={setProfileImg}
+                setProfileWall={setProfileWall}
+                profileImg={profileImg}
+                profileWall={profileWall}
+                userId={userId}
+              />
             </ProfileElement>
           </>
         ) : (

@@ -9,6 +9,7 @@ import { getTweets } from "../../auth/tweet";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../../features/authSlice";
 import TweetLoading from "../profile/TweetLoading";
+import { addImage } from "../../auth/storage";
 
 const Main = () => {
   const [twits, setTwits] = useState();
@@ -18,6 +19,7 @@ const Main = () => {
 
   useEffect(() => {
     dispatch(setLoading(true));
+    addImage();
     getTweets()
       .then((list) => setTwits(list), dispatch(setLoading(false)))
       .catch((error) => console.log(error.message));

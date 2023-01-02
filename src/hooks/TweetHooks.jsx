@@ -23,8 +23,8 @@ const useTweetHooks = () => {
           let likedTweetsArray = Object.entries(snapshot.val());
           //   console.log(likedTweetsArray);
           likedTweetsArray.map((item) => newHolderArray.push(item[0]));
-          console.log(newHolderArray);
-          console.log(tweetId);
+          // console.log(newHolderArray);
+          // console.log(tweetId);
           isHold = newHolderArray.includes(tweetId);
         } else {
           console.log("No data available");
@@ -33,7 +33,7 @@ const useTweetHooks = () => {
       .catch((error) => {
         console.error(error);
       });
-    console.log(isHold);
+    // console.log(isHold);
     return isHold;
   }
 
