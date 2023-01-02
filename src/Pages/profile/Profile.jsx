@@ -12,6 +12,7 @@ import TweetLoading from "./TweetLoading";
 
 const Profile = () => {
   const [personalTweets, setPersonalTweets] = useState();
+  const [newTweetAdd, setNewTweetAdd] = useState(false);
   const { userId, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -23,14 +24,14 @@ const Profile = () => {
         console.log(list);
         let newArray = [];
         let secondArray = [];
-        newArray = list.filter((item) => item[0].userId === userId);
-        console.log(newArray);
-        newArray.map((item) => secondArray.push(item[0]));
+        newArray = list.filter(
+          (item) => item[0].userId === userId && secondArray.push(item)
+        );
         setPersonalTweets(secondArray);
         dispatch(setLoading(false));
       })
       .catch((error) => console.log(error.message));
-  }, []);
+  }, [newTweetAdd]);
   console.log(personalTweets);
   return (
     <MainContainer>
@@ -38,10 +39,10 @@ const Profile = () => {
         <InnerGrid>
           <SideMenu />
           <Box>
-            <ProfileComponent />
+            <ProfileComponent setNewTweetAdd={setNewTweetAdd} />
             {loading && <TweetLoading />}
-            {personalTweets?.map((item, key) => {
-              return <Tweet item={item} key={key} />;
+            {personalTweets?.map((item) => {
+              return <Tweet item={item[0]} id={item[1]} />;
             })}
           </Box>
         </InnerGrid>

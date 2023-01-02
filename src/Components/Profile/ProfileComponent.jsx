@@ -53,7 +53,7 @@ const ProfileElement = styled.div`
   }
 `;
 
-const ProfileComponent = () => {
+const ProfileComponent = ({ setNewTweetAdd }) => {
   const db = getDatabase();
   const { userName, creationDate, userId } = useSelector((state) => state.auth);
   const [user, setUser] = useState();
@@ -89,7 +89,7 @@ const ProfileComponent = () => {
               <p>{user?.description}</p>
             </ProfileElement>
             <ProfileElement>
-              <FormDialog />
+              <FormDialog setNewTweetAdd={setNewTweetAdd} />
             </ProfileElement>
           </>
         ) : (

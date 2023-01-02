@@ -10,7 +10,7 @@ import TextField from "@mui/material/TextField";
 import { useSelector } from "react-redux";
 import writeTweet, { pushMethod } from "../../auth/tweet";
 
-export default function FormDialog() {
+export default function FormDialog({ setNewTweetAdd }) {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -35,6 +35,7 @@ export default function FormDialog() {
     setOpen(false);
     pushMethod(userId, userName, message);
     // writeTweet(userId, userName, message);
+    setNewTweetAdd((prev) => !prev);
     handleClose();
   };
 

@@ -67,6 +67,7 @@ const Tweet = ({ item, id }) => {
   const { userId } = useSelector((state) => state.auth);
   const { isLiked, isRetweeted } = useTweetHooks();
 
+  console.log(item);
   useEffect(() => {
     // setLiked(isLiked(userId, id));
     // setRetweeted(isRetweeted(userId, id));

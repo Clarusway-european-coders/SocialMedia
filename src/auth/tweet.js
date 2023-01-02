@@ -57,6 +57,7 @@ export async function getTweets() {
       tweets.push([childSnapshot.val(), childSnapshot.key]);
     });
   });
+  console.log(tweets);
   return tweets.sort((a, b) => b[0].TIMESTAMP - a[0].TIMESTAMP);
 }
 export default writeTweet;

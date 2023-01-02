@@ -29,6 +29,8 @@ export async function getUser(userId) {
   onValue(dbref, (snapshot) => {
     data = snapshot.val();
   });
+  console.log("Inside getUser");
+  console.log(data);
   return data;
 }
 

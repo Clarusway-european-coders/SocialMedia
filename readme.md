@@ -48,7 +48,7 @@ All the related features will be handled via Firebase.
 - On profile page clicking on profile sends to a non existing page.
 - Tweets are not displayed according to their published date. [done]
 - Users can like tweets more than once. [done]
-- Other tweet users profile name is not visible nor othes can visit it.
+- Other tweet users profile name is not visible nor othes can visit it. [done]
 - Megaphone disables the home button on the main page.
 - The liked state of the tweet is not consistent with the state of the db.[done]
   - DB works as intended but it doesn't catch the first state of the tweet.[done]
@@ -56,5 +56,5 @@ All the related features will be handled via Firebase.
 ## Missing features
 
 - Users can't like tweets [done]
-- Users can't retweets tweets
+- Users can't retweets tweets [done]
 - User follow isn't a thing yet.
