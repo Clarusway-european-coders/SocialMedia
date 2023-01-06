@@ -11,6 +11,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { checkRetweet } from "../../auth/retweet";
 import useTweetHooks from "../../hooks/TweetHooks";
 import { getProfileImg } from "../../auth/storage";
+import { useNavigate } from "react-router";
 
 const TweetContainer = styled.div`
   /* ... */
@@ -42,6 +43,10 @@ const ProfilePicture = styled.div`
 const ProfileTag = styled.h3`
   font-weight: 500;
   font-size: 1.1rem;
+  :hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 const IconDiv = styled.div`
   display: flex;
@@ -72,8 +77,9 @@ const Tweet = ({ item, id }) => {
   const [currentLike, setCurrentLike] = useState(); // Sets the like amount from db.
   const { userId } = useSelector((state) => state.auth);
   const { isLiked, isRetweeted } = useTweetHooks();
+  const navigate = useNavigate();
 
-  console.log(item);
+  // console.log(item);
   useEffect(() => {
     // setLiked(isLiked(userId, id));
     // setRetweeted(isRetweeted(userId, id));
@@ -102,11 +108,16 @@ const Tweet = ({ item, id }) => {
       ? setRetweetCount((currentValue) => currentValue - 1)
       : setRetweetCount((currentValue) => currentValue + 1);
   }
+  async function redirectProfile(userTarget) {
+    navigate(`/main/profile/${userTarget}`);
+  }
   return (
     <TweetContainer>
       <ProfilePicture avatar={avatar} />
       <Box sx={{ marginLeft: "10px" }}>
-        <ProfileTag>{item?.username}</ProfileTag>
+        <ProfileTag onClick={() => redirectProfile(item?.userId)}>
+          {item?.username}
+        </ProfileTag>
         <p>{item?.message}</p>
         <IconDiv>
           <IconContainer onClick={handleLike}>

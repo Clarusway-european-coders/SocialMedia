@@ -1,6 +1,7 @@
 import { Box, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 import { getTweets } from "../../auth/tweet";
 import BottomNav from "../../Components/Main/BottomNav";
 import SideMenu from "../../Components/Main/SideMenu";
@@ -15,9 +16,15 @@ const Profile = () => {
   const [newTweetAdd, setNewTweetAdd] = useState(false);
   const { userId, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  let params = useParams();
 
+  console.log(params);
   useEffect(() => {
     // The function below sorts the personal tweets from firebase
+    let searchId = "";
+    params.userId === undefined
+      ? (searchId = userId)
+      : (searchId = params.userId);
     dispatch(setLoading(true));
     getTweets()
       .then((list) => {
@@ -25,7 +32,7 @@ const Profile = () => {
         let newArray = [];
         let secondArray = [];
         newArray = list.filter(
-          (item) => item[0].userId === userId && secondArray.push(item)
+          (item) => item[0].userId === searchId && secondArray.push(item)
         );
         setPersonalTweets(secondArray);
         dispatch(setLoading(false));

@@ -86,7 +86,7 @@ const ProfileComponent = ({ setNewTweetAdd }) => {
     getWallImg(userId).then((res) => setProfileWall(res));
   }, []);
 
-  console.log(profileWall);
+  // console.log(profileWall);
   return (
     <ProContainer>
       <WallContainer>
