@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import { getDatabase, onValue, ref } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 import styled, { css } from "styled-components";
 import { getUser, ReadDesc } from "../../auth/database";
 import { getProfileImg, getWallImg } from "../../auth/storage";
@@ -75,15 +76,24 @@ const ProfileComponent = ({ setNewTweetAdd }) => {
   const [user, setUser] = useState();
   const [profileImg, setProfileImg] = useState(null);
   const [profileWall, setProfileWall] = useState(null);
-
+  let params = useParams();
+  console.log(params, "IT is from inner ProfileComponent");
   useEffect(() => {
-    const dbref = ref(db, "users/" + userId);
+    /**
+     * @param {string} userid it is used to decide which users information should be visible on the profile page.
+     */
+    let searchId = "";
+    params.userId === undefined
+      ? (searchId = userId)
+      : (searchId = params.userId);
+
+    const dbref = ref(db, "users/" + searchId);
     console.log("Inside the profile compoennte");
     onValue(dbref, (snapshot) => {
       setUser(snapshot.val());
     });
-    getProfileImg(userId).then((res) => setProfileImg(res));
-    getWallImg(userId).then((res) => setProfileWall(res));
+    getProfileImg(searchId).then((res) => setProfileImg(res));
+    getWallImg(searchId).then((res) => setProfileWall(res));
   }, []);
 
   // console.log(profileWall);
