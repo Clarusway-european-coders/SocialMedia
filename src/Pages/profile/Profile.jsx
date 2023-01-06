@@ -21,6 +21,9 @@ const Profile = () => {
   console.log(params);
   useEffect(() => {
     // The function below sorts the personal tweets from firebase
+    /**
+     * @param {string} userid it is used to decide which users information should be visible on the profile page.
+     */
     let searchId = "";
     params.userId === undefined
       ? (searchId = userId)
